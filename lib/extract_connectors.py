@@ -7,8 +7,6 @@
 
 import xml.etree.ElementTree as ET
 
-# tree_de = ET.parse('../data/ConAnoConnectorLexicon.xml')
-# tree_de = ET.parse('../data/ConAnoConnectorLexicon.xml')
 tree_de = ET.parse('KonnektorenAlignierung/data/ConAnoConnectorLexicon.xml')
 root_de = tree_de.getroot()
 
