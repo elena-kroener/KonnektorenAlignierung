@@ -15,7 +15,7 @@ def list_xml_files(corpus_root):
         for filename in filenames if filename.endswith('.xml')
         ]
 
-def xml_to_sent_triples(corpus_root, xml_filename):
+def _xml_to_sent_triples(corpus_root, xml_filename):
     """Returns a list of parallel sentence triples from a xml file."""
     with open(os.path.join(corpus_root, 'de', xml_filename), 'r') as f_de, \
             open(os.path.join(corpus_root, 'en', xml_filename), 'r') as f_en, \
@@ -35,17 +35,22 @@ def xml_to_sent_triples(corpus_root, xml_filename):
         
         return result
 
+def all_xmls_to_sent_triples(corpus_filepaths):
+    """Returns a list of parallel sentence triples from all xml files."""
+    all_sent_triples = []
+    for xml_filename in corpus_filepaths:
+        all_sent_triples.extend(
+            _xml_to_sent_triples(corpus_root, xml_filename)
+            )
+    return all_sent_triples
+
 if __name__ == "__main__":
     # get all xml filenames (they are the same for the three corpora)
     corpus_root = os.path.join('data', 'corpus')
     corpus_filepaths = list_xml_files(os.path.join(corpus_root, 'de'))
 
     # get all sentence triples
-    all_sent_triples = []
-    for xml_filename in corpus_filepaths:
-        all_sent_triples.extend(
-            xml_to_sent_triples(corpus_root, xml_filename)
-            )
+    all_sent_triples = all_xmls_to_sent_triples(corpus_filepaths)
     
     # example usage of named tuple
     print(all_sent_triples[3].de) # Manche befürchten einen zu sorglosen Umgang mit solchen Mitteln,
