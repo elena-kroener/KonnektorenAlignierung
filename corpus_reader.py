@@ -49,7 +49,7 @@ if __name__ == "__main__":
             )
     
     # example usage of named tuple
-    print(all_sent_triples[0].de)
-    print(all_sent_triples[3].en)
-    print(all_sent_triples[7].it)
+    print(all_sent_triples[3].de) # Manche befürchten einen zu sorglosen Umgang mit solchen Mitteln,
+    print(all_sent_triples[3].en) # Some worry about careless use of such measures,
+    print(all_sent_triples[3].it) # Alcuni temono una utilizzo troppo imprudente di tali mezzi,
 
