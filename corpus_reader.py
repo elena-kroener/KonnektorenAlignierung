@@ -2,7 +2,6 @@
 import os
 from collections import namedtuple
 from xml.dom import minidom
-# from lib.extract_connectors import CONNECTOR_DE, CONNECTOR_EN, CONNECTOR_IT
 from data.corpus import *
 
 # define named tuple object for sentence triple
