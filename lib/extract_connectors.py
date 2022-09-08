@@ -7,13 +7,13 @@
 
 import xml.etree.ElementTree as ET
 
-tree_de = ET.parse('KonnektorenAlignierung/data/ConAnoConnectorLexicon.xml')
+tree_de = ET.parse('data/ConAnoConnectorLexicon.xml')
 root_de = tree_de.getroot()
 
-tree_en = ET.parse('KonnektorenAlignierung/data/en_dimlex.xml')
+tree_en = ET.parse('data/en_dimlex.xml')
 root_en = tree_en.getroot()
 
-tree_it = ET.parse('KonnektorenAlignierung/data/LICO-v.1.0.xml')
+tree_it = ET.parse('data/LICO-v.1.0.xml')
 root_it = tree_it.getroot()
 
 # # Print root tag and look at its attributes
@@ -39,21 +39,18 @@ root_it = tree_it.getroot()
 # for part in root_de.findall("./entry/orth/part/[type='single']"):
 #     print(part.text)
 
-connectors_de = []
+CONNECTOR_DE = []
 # for part in root_de.iter('part'):
     # connector_low = part.text.lower()
     # if connector_low not in connectors_de:
     #     connectors_de.append(connector_low)
-[connectors_de.append(part.text.lower()) for part in root_de.iter('part') if
- part.text.lower() not in connectors_de]
-print(connectors_de)
+[CONNECTOR_DE.append(part.text.lower()) for part in root_de.iter('part') if
+ part.text.lower() not in CONNECTOR_DE]
 
-connectors_en = []
-[connectors_en.append(part.text.lower()) for part in root_en.iter(
-    'part') if part.text.lower() not in connectors_en]
-print(connectors_en)
+CONNECTOR_EN = []
+[CONNECTOR_EN.append(part.text.lower()) for part in root_en.iter(
+    'part') if part.text.lower() not in CONNECTOR_EN]
 
-connectors_it = []
-[connectors_it.append(part.text.lower()) for part in root_it.iter(
-    'part') if part.text.lower() not in connectors_it]
-print(connectors_it)
+CONNECTOR_IT = []
+[CONNECTOR_IT.append(part.text.lower()) for part in root_it.iter(
+    'part') if part.text.lower() not in CONNECTOR_IT]
