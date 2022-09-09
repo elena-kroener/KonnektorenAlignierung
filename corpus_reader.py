@@ -44,6 +44,7 @@ def _xml_to_sent_triples(corpus_root, xml_filename):
 
         return result
 
+
 if __name__ == "__main__":
     # get all xml filenames (they are the same for the three corpora)
     corpus_root = os.path.join('data', 'corpus')
