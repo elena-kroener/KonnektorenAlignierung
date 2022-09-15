@@ -7,6 +7,7 @@
 
 import json
 import xml.etree.ElementTree as ET
+import re
 
 tree_de = ET.parse('KonnektorenAlignierung/data/ConAnoConnectorLexicon.xml')
 root_de = tree_de.getroot()
@@ -40,13 +41,13 @@ root_it = tree_it.getroot()
 # for part in root_de.findall("./entry/orth/part/[type='single']"):
 #     print(part.text)
 
-connectors_de = []
-# for part in root_de.iter('part'):
-#     connector_low = part.text.lower()
-#     if connector_low not in connectors_de:
-#         connectors_de.append(connector_low)
-[connectors_de.append(part.text.lower()) for part in root_de.iter('part') if
- part.text.lower() not in connectors_de]
+# connectors_de = []
+# # for part in root_de.iter('part'):
+# #     connector_low = part.text.lower()
+# #     if connector_low not in connectors_de:
+# #         connectors_de.append(connector_low)
+# [connectors_de.append(part.text.lower()) for part in root_de.iter('part') if
+#  part.text.lower() not in connectors_de]
 
 def find_connectors_en(xml_root):
     """returns a dictionary in which each entry is in the for of {connector: [relations]}."""
@@ -62,7 +63,7 @@ def find_connectors_en(xml_root):
                     if rel.find('.') == -1:
                         relations.append(rel)
                     else:
-                        relations.append(rel[:rel.find('.')])
+                       relations.append(rel[:rel.find('.')])
         # save each part of the connector pair with '/' like 'not only/but', when/then separately
         if connector.find('/') > -1:
             for sub_connector in connector.split('/'):
@@ -72,7 +73,38 @@ def find_connectors_en(xml_root):
 
     return result
 
+def find_connectors_de(xml_root):
+    """Extract connectors and save them with their relation"""
+    connectors_relations = {}
+    # Traverse tree to check each entry for connector alternatives and their
+    # relations
+    for entry in xml_root.iter('entry'):
+        # List of connector alternatives
+        connector_alternatives = []
+        for orth in entry.iter('orth'):
+            connector = orth.find('part').text.lower()
+            connector_alternatives.append(connector)
+            # Clean spaces before commas
+            for connector in connector_alternatives:
+                connector = re.sub('\s,', ',', connector)
+            # List of relations for connector_alternatives
+            relations = []
+            for syn in entry.iter('syn'):
+                for sem in syn.iter('sem'):
+                    for relation in sem.iter('coh-relation'):
+                        rel = relation.text
+                        # Make sure entry is not empty
+                        if rel != None:
+                            # Avoid cutting off for one-part relations
+                            if rel.find('.') == -1:
+                                relations.append(rel)
+                            else:
+                                relations.append(rel[:rel.find('.')])
+            connectors_relations[connector] = list(set(relations))
+    return connectors_relations
+
 connectors_en = find_connectors_en(root_en)
+connectors_de = find_connectors_de(root_de)
 
 connectors_it = []
 [connectors_it.append(part.text.lower()) for part in root_it.iter(
@@ -81,9 +113,11 @@ connectors_it = []
 
 def write_dict_to_json(connector_rel_dict, path_out):
     with open(path_out, mode='w', encoding='utf-8') as f_out:
-        json.dump(connector_rel_dict, f_out)
+        json.dump(connector_rel_dict, f_out, ensure_ascii=False)
 
-# write_list_to_json(connectors_de, '../data/connector_lists/connectors_de.txt')
+write_dict_to_json(connectors_de,
+                   'KonnektorenAlignierung/data/connector_lists'
+                   '/connectors_de.json')
 write_dict_to_json(connectors_en,
                    'KonnektorenAlignierung/data/connector_lists/connectors_en'
                    '.json')
