@@ -8,13 +8,13 @@
 import json
 import xml.etree.ElementTree as ET
 
-tree_de = ET.parse('../data/ConAnoConnectorLexicon.xml')
+tree_de = ET.parse('KonnektorenAlignierung/data/ConAnoConnectorLexicon.xml')
 root_de = tree_de.getroot()
 
-tree_en = ET.parse('../data/en_dimlex.xml')
+tree_en = ET.parse('KonnektorenAlignierung/data/en_dimlex.xml')
 root_en = tree_en.getroot()
 
-tree_it = ET.parse('../data/LICO-v.1.0.xml')
+tree_it = ET.parse('KonnektorenAlignierung/data/LICO-v.1.0.xml')
 root_it = tree_it.getroot()
 
 # # Print root tag and look at its attributes
@@ -59,7 +59,10 @@ def find_connectors_en(xml_root):
             for sem in syn.iter('sem'):
                 for relation in sem.iter('pdtb2_relation'):
                     rel = relation.attrib['sense']
-                    relations.append(rel[:rel.find('.')])
+                    if rel.find('.') == -1:
+                        relations.append(rel)
+                    else:
+                        relations.append(rel[:rel.find('.')])
         # save each part of the connector pair with '/' like 'not only/but', when/then separately
         if connector.find('/') > -1:
             for sub_connector in connector.split('/'):
@@ -81,5 +84,7 @@ def write_dict_to_json(connector_rel_dict, path_out):
         json.dump(connector_rel_dict, f_out)
 
 # write_list_to_json(connectors_de, '../data/connector_lists/connectors_de.txt')
-write_dict_to_json(connectors_en, '../data/connector_lists/connectors_en.json')
+write_dict_to_json(connectors_en,
+                   'KonnektorenAlignierung/data/connector_lists/connectors_en'
+                   '.json')
 # write_list_to_json(connectors_it, '../data/connector_lists/connectors_it.txt')
