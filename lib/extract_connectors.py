@@ -59,7 +59,7 @@ def find_connectors_en(xml_root):
         for syn in entry.iter('syn'):
             for sem in syn.iter('sem'):
                 for relation in sem.iter('pdtb2_relation'):
-                    rel = relation.attrib['sense']
+                    rel = relation.attrib['sense'].lower()
                     if rel.find('.') == -1:
                         relations.append(rel)
                     else:
@@ -95,6 +95,7 @@ def find_connectors_de(xml_root):
                         rel = relation.text
                         # Make sure entry is not empty
                         if rel != None:
+                            rel = rel.lower()
                             # Avoid cutting off for one-part relations
                             if rel.find('.') == -1:
                                 relations.append(rel)
@@ -124,6 +125,7 @@ def find_connectors_it(xml_root):
                         rel = relation.text
                         # Make sure entry is not empty
                         if rel != None:
+                            rel = rel.lower()
                             # Avoid cutting off for one-part relations
                             if rel.find(':') == -1:
                                 relations.append(rel)
