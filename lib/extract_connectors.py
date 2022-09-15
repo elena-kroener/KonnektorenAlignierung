@@ -103,12 +103,42 @@ def find_connectors_de(xml_root):
             connectors_relations[connector] = list(set(relations))
     return connectors_relations
 
+def find_connectors_it(xml_root):
+    """Extract connectors and save them with their relation"""
+    connectors_relations = {}
+    # Traverse tree to check each entry for connector alternatives and their
+    # relations
+    for entry in xml_root.iter('entry'):
+        connector_alternatives = []
+        for orth in entry.iter('orth'):
+            connector = orth.find('part').text.lower()
+            connector_alternatives.append(connector)
+            # Clean spaces before commas
+            for connector in connector_alternatives:
+                connector = re.sub('\s,', ',', connector)
+            # List of relations for connector_alternatives
+            relations = []
+            for syn in entry.iter('syn'):
+                for sem in syn.iter('sem'):
+                    for relation in sem.iter('coh-relation'):
+                        rel = relation.text
+                        # Make sure entry is not empty
+                        if rel != None:
+                            # Avoid cutting off for one-part relations
+                            if rel.find(':') == -1:
+                                relations.append(rel)
+                            else:
+                                relations.append(rel[:rel.find(':')])
+            connectors_relations[connector] = list(set(relations))
+    return connectors_relations
+
 connectors_en = find_connectors_en(root_en)
 connectors_de = find_connectors_de(root_de)
+connectors_it = find_connectors_it(root_it)
 
-connectors_it = []
-[connectors_it.append(part.text.lower()) for part in root_it.iter(
-    'part') if part.text.lower() not in connectors_it]
+# connectors_it = []
+# [connectors_it.append(part.text.lower()) for part in root_it.iter(
+#     'part') if part.text.lower() not in connectors_it]
 
 
 def write_dict_to_json(connector_rel_dict, path_out):
@@ -121,4 +151,6 @@ write_dict_to_json(connectors_de,
 write_dict_to_json(connectors_en,
                    'KonnektorenAlignierung/data/connector_lists/connectors_en'
                    '.json')
-# write_list_to_json(connectors_it, '../data/connector_lists/connectors_it.txt')
+write_dict_to_json(connectors_it,
+                   'KonnektorenAlignierung/data/connector_lists/connectors_it'
+                   '.json')
