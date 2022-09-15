@@ -5,7 +5,7 @@
 # See also:
 # https://docs.python.org/3/library/xml.etree.elementtree.html
 
-import re
+import json
 import xml.etree.ElementTree as ET
 
 tree_de = ET.parse('../data/ConAnoConnectorLexicon.xml')
@@ -42,46 +42,44 @@ root_it = tree_it.getroot()
 
 connectors_de = []
 # for part in root_de.iter('part'):
-    # connector_low = part.text.lower()
-    # if connector_low not in connectors_de:
-    #     connectors_de.append(connector_low)
+#     connector_low = part.text.lower()
+#     if connector_low not in connectors_de:
+#         connectors_de.append(connector_low)
 [connectors_de.append(part.text.lower()) for part in root_de.iter('part') if
  part.text.lower() not in connectors_de]
-# print(connectors_de)
 
-connectors_en = []
-[connectors_en.append(part.text.lower()) for part in root_en.iter(
-    'part') if part.text.lower() not in connectors_en]
-# print(connectors_en)
+def find_connectors_en(xml_root):
+    """returns a dictionary in which each entry is in the for of {connector: [relations]}."""
+    result = dict()
+    for entry in xml_root.iter('entry'):
+        connector = entry.attrib['word']
+        relations = []
+        # find all relations
+        for syn in entry.iter('syn'):
+            for sem in syn.iter('sem'):
+                for relation in sem.iter('pdtb2_relation'):
+                    rel = relation.attrib['sense']
+                    relations.append(rel[:rel.find('.')])
+        # save each part of the connector pair with '/' like 'not only/but', when/then separately
+        if connector.find('/') > -1:
+            for sub_connector in connector.split('/'):
+                result[sub_connector] = list(set(relations))
+        else:
+            result[connector] = list(set(relations))
+
+    return result
+
+connectors_en = find_connectors_en(root_en)
 
 connectors_it = []
 [connectors_it.append(part.text.lower()) for part in root_it.iter(
     'part') if part.text.lower() not in connectors_it]
-# print(connectors_it)
 
-# write into txt file: 
-# 1) pop from list
-# 2) check if it needs to be cleaned
-# 3) writes the clean version into the txt
 
-def write_list_to_txt(connector_list, path_out):
-    """Saves a (cleaned) connector list to the given path as txt."""
+def write_dict_to_json(connector_rel_dict, path_out):
     with open(path_out, mode='w', encoding='utf-8') as f_out:
-        while len(connector_list) > 0:
-            current_connector = connector_list.pop()
-            
-            ## clean the connector list
-            # problem 1: remove space before comma in DE corpus
-            current_connector = re.sub('\s,', ',', current_connector)
-            
-            # problem 2 (settled manually): slash in pairwise connectors in EN -> saved separately,
-            # but we have to pay attention later in the html files
-            # only two examples:'not only/but', when/then
-            
-            # write to file
-            f_out.write(current_connector)
-            f_out.write('\n')
+        json.dump(connector_rel_dict, f_out)
 
-write_list_to_txt(connectors_de, '../data/connector_lists/connectors_de.txt')
-write_list_to_txt(connectors_en, '../data/connector_lists/connectors_en.txt')
-write_list_to_txt(connectors_it, '../data/connector_lists/connectors_it.txt')
+# write_list_to_json(connectors_de, '../data/connector_lists/connectors_de.txt')
+write_dict_to_json(connectors_en, '../data/connector_lists/connectors_en.json')
+# write_list_to_json(connectors_it, '../data/connector_lists/connectors_it.txt')
