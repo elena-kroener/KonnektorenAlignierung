@@ -30,7 +30,7 @@ def allign_connectors(extracted_connectors):
         and len(extracted_connectors['it']) == 0:
         return result
     # if only one connector
-    if len(extracted_connectors['de']) == 1 \
+    elif len(extracted_connectors['de']) == 1 \
         and len(extracted_connectors['en']) == 1 \
         and len(extracted_connectors['it']) == 1:
         color = colors.pop(0)
@@ -40,28 +40,28 @@ def allign_connectors(extracted_connectors):
             all_aligned[color].append(index)
     else:
         align = []
-        for connector_de in extracted_connectors['de']:
-            if connector_de[2]:  # currently only possible if relation given
-                align_con = [connector_de[1]]
-                for lang in ['en', 'it']:
+        lang_with_most_cons = max((len(v), k) for k, v in extracted_connectors.items())[1]
+        other_langs = ['de', 'en', 'it']
+        other_langs.remove(lang_with_most_cons)
+        for first_lang_connector in extracted_connectors[lang_with_most_cons]:
+            if first_lang_connector[2]:  # currently only possible if relation given
+                align_con = {lang_with_most_cons: first_lang_connector[1]}
+                for lang in other_langs:
                     index = None
                     for con in extracted_connectors[lang]:
                         if con[2]:
-                            for relation in con[2]:
-                                if relation in connector_de[2]:
-                                    index = con[1]
-                                    continue
-                    align_con += [index]
-                # {color: (index, index, index)}
-                align.append(align_con)
+                            if any(relation in con[2] for relation in first_lang_connector[2]):
+                                index = con[1]
+                    align_con[lang] = index
+                align.append([align_con['de'], align_con['en'], align_con['it']])
         all_aligned = {colors.pop(0): triple for triple in align}
+    # Restructure into {lang: {index: color, index: color}}
     langs = {0: 'de', 1: 'en', 2: 'it'}
     if all_aligned:
         for i, lang in langs.items():
             for color in all_aligned.keys():
                 this_langs_index = all_aligned[color][i]
                 r = {this_langs_index: color}
-                # {lang: {index: color}}
                 result[lang].update(r)
     return result
 
