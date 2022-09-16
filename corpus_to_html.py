@@ -61,16 +61,16 @@ def allign_connectors(extracted_connectors):
             for color in all_aligned.keys():
                 this_langs_index = all_aligned[color][i]
                 r = {this_langs_index: color}
-            # {lang: {index: color}}
+                # {lang: {index: color}}
                 result[lang].update(r)
     return result
 
-def sent_to_html_str(sent, alligned_connectors, lang):
+def sent_to_html_str(sent, aligned_connectors, lang):
     """Converts a sentence to a html-string."""
     html_elements = ['<p>']
     for i, token in enumerate(word_tokenize(sent)):
-        if i in alligned_connectors[lang].keys():
-            color = alligned_connectors[lang].get(i)
+        if i in aligned_connectors[lang].keys():
+            color = aligned_connectors[lang].get(i)
             html_elements.append(f'<font color={color}>{token} </font>')
         else:
             html_elements.append(f'{token} ')
@@ -83,14 +83,11 @@ def write_as_html(path_out, sent_triples, connector_list):
     with open(path_out, mode='w', encoding='utf-8') as f_out:
         for triple_id, triple in enumerate(sent_triples):
             extracted_connectors = extract_connectors(triple, connector_list)
-            #print(extracted_connectors)
-            alligned_connectors = allign_connectors(extracted_connectors)
-            print("ALIGNED: ", alligned_connectors)
+            aligned_connectors = allign_connectors(extracted_connectors)
             f_out.write(f'<p>{triple_id}</p>\n')
             langs = {0: 'de', 1: 'en', 2: 'it'}
             for i, sent in enumerate(triple):
-                #for color in alligned_connectors.keys():
-                f_out.write(sent_to_html_str(sent, alligned_connectors, langs[i]))
+                f_out.write(sent_to_html_str(sent, aligned_connectors, langs[i]))
                 f_out.write('\n')
 
 
