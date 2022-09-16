@@ -10,12 +10,13 @@ def read_connector_list(txt_filepath):
     return result
 
 def extract_connectors(triple, connector_list):
-    """Extracts connectors as dict with their index as key"""
-    connectors_in_triple = {key: dict() for key in ['de', 'en', 'it']}
+    """Extracts connectors as dict with their index and their relation(s)"""
+    connectors_in_triple = {key: list() for key in ['de', 'en', 'it']}
     for lang, sent in triple._asdict().items():
         for i, token in enumerate(word_tokenize(sent)):
-            if token.lower() in connector_list:
-                connectors_in_triple[lang].update({i: token})
+            if token.lower() in connector_list.keys():
+                connectors_in_triple[lang].append((token, i, connector_list.get(token)))
+    print(connectors_in_triple)
     return connectors_in_triple
 
 def allign_connectors(extracted_connectors):
