@@ -21,22 +21,30 @@ def extract_connectors(triple, connector_list):
 
 def allign_connectors(extracted_connectors):
     """
-    Allign connectors into a dict of the form {color: {de: {index: word, index: word} en: {index: word, index: word}}, it: {index: word, index: word}}
+    Allign connectors into a dict of the form {color: (index_de, index_en, index_it)}
     """
     colors = ['red', 'blue', 'yellow', 'green', 'pink']
     # if only one connector
     if len(extracted_connectors['de']) == 1 \
         and len(extracted_connectors['en']) == 1 \
         and len(extracted_connectors['it']) == 1:
-        return {colors.pop(0): extracted_connectors}
+        print({colors.pop(0): tuple([index for con, i, rel in extracted_connectors.values()])})
+        return {colors.pop(0): tuple([index for con, i, rel in extracted_connectors.values()])}
     else:
-        print(extracted_connectors)
-        for index, connector in extracted_connectors['de'].items():
-            col = colors.pop(0)
-            allign = {col: {'de': {index: connector}}}
-            if index in extracted_connectors['en'].keys():
-                allign.update({col: {'en': extracted_connectors['en'][index]}})
-        return allign
+        align = []
+        for connector_de in extracted_connectors['de']:
+            align_con = [connector_de[1]]
+            for lang in ['en', 'it']:
+                for con in extracted_connectors[lang]:
+                    for relation in con[2]:
+                        if relation in connector_de[2]:
+                            index = con[1]
+                        else:
+                            index = None
+                align_con += [index]
+            align.append(tuple(align_con))
+            print(align)
+    return {colors.pop(0): triple for triple in align}
 
 def sent_to_html_str(sent, color, language, alligned_connectors):
     """Converts a sentence to a html-string."""
