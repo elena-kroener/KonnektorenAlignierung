@@ -22,7 +22,7 @@ def allign_connectors(extracted_connectors):
     """
     Allign connectors into a dict of the form {color: (index_de, index_en, index_it)}
     """
-    colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple', 'orange', 'brown']
+    colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple', 'orange', 'brown', 'magenta', 'coral', 'beer', 'khaki']
     result = {'de': dict(), 'en': dict(), 'it': dict()}
     # if no connector
     if len(extracted_connectors['de']) == 0 \
@@ -71,7 +71,7 @@ def sent_to_html_str(sent, alligned_connectors, lang):
     for i, token in enumerate(word_tokenize(sent)):
         if i in alligned_connectors[lang].keys():
             color = alligned_connectors[lang].get(i)
-            html_elements.append(f'<font color=color>{token} </font>')
+            html_elements.append(f'<font color={color}>{token} </font>')
         else:
             html_elements.append(f'{token} ')
     html_elements.append('</p>')
