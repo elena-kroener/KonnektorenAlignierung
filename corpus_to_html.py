@@ -16,42 +16,62 @@ def extract_connectors(triple, connector_list):
         for i, token in enumerate(word_tokenize(sent)):
             if token.lower() in connector_list.keys():
                 connectors_in_triple[lang].append((token, i, connector_list.get(token)))
-    print(connectors_in_triple)
     return connectors_in_triple
 
 def allign_connectors(extracted_connectors):
     """
     Allign connectors into a dict of the form {color: (index_de, index_en, index_it)}
     """
-    colors = ['red', 'blue', 'yellow', 'green', 'pink']
+    colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple', 'orange', 'brown']
+    result = {'de': dict(), 'en': dict(), 'it': dict()}
+    # if no connector
+    if len(extracted_connectors['de']) == 0 \
+        and len(extracted_connectors['en']) == 0 \
+        and len(extracted_connectors['it']) == 0:
+        return result
     # if only one connector
     if len(extracted_connectors['de']) == 1 \
         and len(extracted_connectors['en']) == 1 \
         and len(extracted_connectors['it']) == 1:
-        print({colors.pop(0): tuple([index for con, i, rel in extracted_connectors.values()])})
-        return {colors.pop(0): tuple([index for con, i, rel in extracted_connectors.values()])}
+        color = colors.pop(0)
+        all_aligned = {color: []}
+        for key, value in extracted_connectors.items():
+            index = value[0][1]
+            all_aligned[color].append(index)
     else:
         align = []
         for connector_de in extracted_connectors['de']:
-            align_con = [connector_de[1]]
-            for lang in ['en', 'it']:
-                for con in extracted_connectors[lang]:
-                    for relation in con[2]:
-                        if relation in connector_de[2]:
-                            index = con[1]
-                        else:
-                            index = None
-                align_con += [index]
-            align.append(tuple(align_con))
-            print(align)
-    return {colors.pop(0): triple for triple in align}
+            if connector_de[2]:  # currently only possible if relation given
+                align_con = [connector_de[1]]
+                for lang in ['en', 'it']:
+                    index = None
+                    for con in extracted_connectors[lang]:
+                        if con[2]:
+                            for relation in con[2]:
+                                if relation in connector_de[2]:
+                                    index = con[1]
+                                    continue
+                    align_con += [index]
+                # {color: (index, index, index)}
+                align.append(align_con)
+        all_aligned = {colors.pop(0): triple for triple in align}
+    langs = {0: 'de', 1: 'en', 2: 'it'}
+    if all_aligned:
+        for i, lang in langs.items():
+            for color in all_aligned.keys():
+                this_langs_index = all_aligned[color][i]
+                r = {this_langs_index: color}
+            # {lang: {index: color}}
+                result[lang].update(r)
+    return result
 
-def sent_to_html_str(sent, color, language, alligned_connectors):
+def sent_to_html_str(sent, alligned_connectors, lang):
     """Converts a sentence to a html-string."""
     html_elements = ['<p>']
     for i, token in enumerate(word_tokenize(sent)):
-        if i in alligned_connectors[color][language].keys():
-            html_elements.append(f'<font color="red">{token} </font>')
+        if i in alligned_connectors[lang].keys():
+            color = alligned_connectors[lang].get(i)
+            html_elements.append(f'<font color=color>{token} </font>')
         else:
             html_elements.append(f'{token} ')
     html_elements.append('</p>')
@@ -65,12 +85,12 @@ def write_as_html(path_out, sent_triples, connector_list):
             extracted_connectors = extract_connectors(triple, connector_list)
             #print(extracted_connectors)
             alligned_connectors = allign_connectors(extracted_connectors)
-            #print(alligned_connectors)
+            print("ALIGNED: ", alligned_connectors)
             f_out.write(f'<p>{triple_id}</p>\n')
             langs = {0: 'de', 1: 'en', 2: 'it'}
             for i, sent in enumerate(triple):
-                for color in alligned_connectors.keys():
-                    f_out.write(sent_to_html_str(sent, color, langs[i], alligned_connectors))
+                #for color in alligned_connectors.keys():
+                f_out.write(sent_to_html_str(sent, alligned_connectors, langs[i]))
                 f_out.write('\n')
 
 
