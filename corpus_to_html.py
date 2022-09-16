@@ -1,13 +1,12 @@
 import os
+import json
 from corpus_reader import *
 from nltk.tokenize import word_tokenize
 
 def read_connector_list(txt_filepath):
-    """Returns a set of connectors read from a txt file."""
-    result = set()
+    """Returns a dict of connectors read from a json file."""
     with open(txt_filepath, 'r', encoding='utf-8') as f_in:
-        for line in f_in:
-            result.add(line.strip())
+        result = json.load(f_in)
     return result
 
 def extract_connectors(triple, connector_list):
@@ -16,13 +15,12 @@ def extract_connectors(triple, connector_list):
     for lang, sent in triple._asdict().items():
         for i, token in enumerate(word_tokenize(sent)):
             if token.lower() in connector_list:
-                connectors_in_triple[lang][i] = token
+                connectors_in_triple[lang].update({i: token})
     return connectors_in_triple
 
-def align_connectors(extracted_connectors):
+def allign_connectors(extracted_connectors):
     """
-    Allign connectors into a dict of the form 
-    {color: {'de': {index: word, index: word}, 'en': {index: word, index: word}}, 'it': {index: word, index: word}}
+    Allign connectors into a dict of the form {color: {de: {index: word, index: word} en: {index: word, index: word}}, it: {index: word, index: word}}
     """
     colors = ['red', 'blue', 'yellow', 'green', 'pink']
     # if only one connector
@@ -31,18 +29,17 @@ def align_connectors(extracted_connectors):
         and len(extracted_connectors['it']) == 1:
         return {colors.pop(0): extracted_connectors}
     else:
-        # print(extracted_connectors)
+        print(extracted_connectors)
         for index, connector in extracted_connectors['de'].items():
-            color = colors.pop(0)
-            align = {color: {'de': {index: connector}}}
+            col = colors.pop(0)
+            allign = {col: {'de': {index: connector}}}
             if index in extracted_connectors['en'].keys():
-                align.update({color: {'en': extracted_connectors['en'][index]}})
-        return align
+                allign.update({col: {'en': extracted_connectors['en'][index]}})
+        return allign
 
 def sent_to_html_str(sent, color, language, alligned_connectors):
     """Converts a sentence to a html-string."""
     html_elements = ['<p>']
-    print(alligned_connectors)
     for i, token in enumerate(word_tokenize(sent)):
         if i in alligned_connectors[color][language].keys():
             html_elements.append(f'<font color="red">{token} </font>')
@@ -58,7 +55,7 @@ def write_as_html(path_out, sent_triples, connector_list):
         for triple_id, triple in enumerate(sent_triples):
             extracted_connectors = extract_connectors(triple, connector_list)
             #print(extracted_connectors)
-            alligned_connectors = align_connectors(extracted_connectors)
+            alligned_connectors = allign_connectors(extracted_connectors)
             #print(alligned_connectors)
             f_out.write(f'<p>{triple_id}</p>\n')
             langs = {0: 'de', 1: 'en', 2: 'it'}
@@ -70,10 +67,10 @@ def write_as_html(path_out, sent_triples, connector_list):
 
 if __name__ == '__main__':
     # connector lists
-    CONNECTORS_DE = read_connector_list('data/connector_lists/connectors_de.txt')
-    CONNECTORS_EN = read_connector_list('data/connector_lists/connectors_en.txt')
-    CONNECTORS_IT = read_connector_list('data/connector_lists/connectors_it.txt')
-    connector_list = set()
+    CONNECTORS_DE = read_connector_list('data/connector_lists/connectors_de.json')
+    CONNECTORS_EN = read_connector_list('data/connector_lists/connectors_en.json')
+    CONNECTORS_IT = read_connector_list('data/connector_lists/connectors_it.json')
+    connector_list = dict()
     {connector_list.update(lang) for lang in [CONNECTORS_DE, CONNECTORS_EN,
                                               CONNECTORS_IT]}
     # get all sentence triples
