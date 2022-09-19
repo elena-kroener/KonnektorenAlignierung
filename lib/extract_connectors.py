@@ -64,8 +64,6 @@ def find_connectors_en(xml_root):
                 connector_parts.update(
                     part.text.lower() for part in orth.iter('part')
                     )
-            if len(connector_parts) > 1:
-                print(connector_parts)
         
         # find all relations
         relations = []
@@ -77,6 +75,7 @@ def find_connectors_en(xml_root):
                         relations.append(rel)
                     else: # need to be adjusted
                        relations.append(rel[:rel.find('.')])
+        relations = list(set(relations))
 
         # append df row
         new_rows = []
