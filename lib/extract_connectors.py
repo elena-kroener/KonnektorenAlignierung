@@ -9,13 +9,15 @@ import json
 import xml.etree.ElementTree as ET
 import re
 
-tree_de = ET.parse('KonnektorenAlignierung/data/ConAnoConnectorLexicon.xml')
+import pandas as pd
+
+tree_de = ET.parse('../data/ConAnoConnectorLexicon.xml')
 root_de = tree_de.getroot()
 
-tree_en = ET.parse('KonnektorenAlignierung/data/en_dimlex.xml')
+tree_en = ET.parse('../data/en_dimlex.xml')
 root_en = tree_en.getroot()
 
-tree_it = ET.parse('KonnektorenAlignierung/data/LICO-v.1.0.xml')
+tree_it = ET.parse('../data/LICO-v.1.0.xml')
 root_it = tree_it.getroot()
 
 # # Print root tag and look at its attributes
@@ -50,28 +52,63 @@ root_it = tree_it.getroot()
 #  part.text.lower() not in connectors_de]
 
 def find_connectors_en(xml_root):
-    """returns a dictionary in which each entry is in the for of {connector: [relations]}."""
-    result = dict()
+    """returns a dataframe with coloumns: connector | relation | is_pair | counterpart."""
+    df = pd.DataFrame(columns=['connector', 'relation', 'is_pair', 'counterpart'])
+    count = 0
     for entry in xml_root.iter('entry'):
-        connector = entry.attrib['word']
-        relations = []
+        count += 1
+        # find connector/ connector pairs
+        for orths in entry.iter('orths'):
+            connector_parts = set()
+            for orth in orths.iter('orth'):
+                connector_parts.update(
+                    part.text.lower() for part in orth.iter('part')
+                    )
+            if len(connector_parts) > 1:
+                print(connector_parts)
+        
         # find all relations
+        relations = []
         for syn in entry.iter('syn'):
             for sem in syn.iter('sem'):
                 for relation in sem.iter('pdtb2_relation'):
                     rel = relation.attrib['sense'].lower()
-                    if rel.find('.') == -1:
+                    if rel.find('.') == -1: # if no subcategory is specified
                         relations.append(rel)
-                    else:
+                    else: # need to be adjusted
                        relations.append(rel[:rel.find('.')])
-        # save each part of the connector pair with '/' like 'not only/but', when/then separately
-        if connector.find('/') > -1:
-            for sub_connector in connector.split('/'):
-                result[sub_connector] = list(set(relations))
-        else:
-            result[connector] = list(set(relations))
 
-    return result
+        # append df row
+        new_rows = []
+        if len(connector_parts) == 1:
+            new_rows.append(pd.DataFrame([[connector_parts.pop(), relations, False, None]],
+                                    columns=['connector', 'relation', 'is_pair', 'counterpart'])
+                            )
+        
+        # double connectors or 'afterward(s)'
+        elif len(connector_parts) == 2:
+            # the form can be 'afterward' or 'afterwards' 
+            if 'afterward' in connector_parts: 
+                for _ in range(2):      
+                    new_rows.append(pd.concat([df, pd.DataFrame([[connector_parts.pop(), relations, False, None]],
+                                            columns=['connector', 'relation', 'is_pair', 'counterpart'])])
+                                    )
+            # double connectors: order does not matter
+            else:
+                fst_part, snd_part = connector_parts.pop(), connector_parts.pop()
+                new_rows.append(pd.DataFrame([[fst_part, relations, True, snd_part]],
+                                        columns=['connector', 'relation', 'is_pair', 'counterpart'])
+                                )
+                new_rows.append(pd.DataFrame([[snd_part, relations, True, fst_part]],
+                                        columns=['connector', 'relation', 'is_pair', 'counterpart'])
+                                )
+                
+        for new_row in new_rows:
+            df = pd.concat([df, new_row])
+        
+    # print(df)
+    # print(count)
+    return df
 
 def find_connectors_de(xml_root):
     """Extract connectors and save them with their relation"""
@@ -138,6 +175,7 @@ connectors_en = find_connectors_en(root_en)
 connectors_de = find_connectors_de(root_de)
 connectors_it = find_connectors_it(root_it)
 
+connectors_en.to_csv('./df_en.csv')
 # connectors_it = []
 # [connectors_it.append(part.text.lower()) for part in root_it.iter(
 #     'part') if part.text.lower() not in connectors_it]
@@ -147,12 +185,13 @@ def write_dict_to_json(connector_rel_dict, path_out):
     with open(path_out, mode='w', encoding='utf-8') as f_out:
         json.dump(connector_rel_dict, f_out, ensure_ascii=False)
 
-write_dict_to_json(connectors_de,
-                   'KonnektorenAlignierung/data/connector_lists'
-                   '/connectors_de.json')
-write_dict_to_json(connectors_en,
-                   'KonnektorenAlignierung/data/connector_lists/connectors_en'
-                   '.json')
-write_dict_to_json(connectors_it,
-                   'KonnektorenAlignierung/data/connector_lists/connectors_it'
-                   '.json')
+# write_dict_to_json(connectors_de,
+#                    '../data/connector_lists'
+#                    '/connectors_de.json')
+# write_dict_to_json(connectors_en,
+#                    '../data/connector_lists/connectors_en'
+#                    '.json')
+# write_dict_to_json(connectors_it,
+#                    '../data/connector_lists/connectors_it'
+#                    '.json')
+
