@@ -122,12 +122,10 @@ def find_connectors_de(xml_root):
                 connector_parts.update(
                     part.text.lower() for part in orth.iter('part')
                 )
-        # print(connector_parts)
 
         connectors_relations = {}
     # Traverse tree to check each entry for connector alternatives and their
     # relations
-    # for entry in xml_root.iter('entry'):
         # List of connector alternatives
         connector_alternatives = []
         for orth in entry.iter('orth'):
@@ -151,7 +149,6 @@ def find_connectors_de(xml_root):
                             else:
                                 relations.append(rel[:rel.find('.')])
             connectors_relations[connector] = list(set(relations))
-    # return connectors_relations
 
         # append df row
         new_rows = []
@@ -189,8 +186,6 @@ def find_connectors_de(xml_root):
         for new_row in new_rows:
             df = pd.concat([df, new_row])
     return df
-
-
 
 def find_connectors_it(xml_root):
     """Extract connectors and save them with their relation"""
