@@ -188,11 +188,23 @@ def find_connectors_de(xml_root):
     return df
 
 def find_connectors_it(xml_root):
-    """Extract connectors and save them with their relation"""
-    connectors_relations = {}
+    df = pd.DataFrame(
+        columns=['connector', 'relation', 'is_pair', 'counterpart'])
+    count = 0
+    for entry in xml_root.iter('entry'):
+        count += 1
+        # find connector/ connector pairs
+        for orth in entry.iter('orth'):
+            connector_parts = set()
+            for orth in orth.iter('orth'):
+                connector_parts.update(
+                    part.text.lower() for part in orth.iter('part')
+                )
+
+        connectors_relations = {}
     # Traverse tree to check each entry for connector alternatives and their
     # relations
-    for entry in xml_root.iter('entry'):
+        # List of connector alternatives
         connector_alternatives = []
         for orth in entry.iter('orth'):
             connector = orth.find('part').text.lower()
@@ -215,7 +227,43 @@ def find_connectors_it(xml_root):
                             else:
                                 relations.append(rel[:rel.find(':')])
             connectors_relations[connector] = list(set(relations))
-    return connectors_relations
+
+        # append df row
+        new_rows = []
+        if len(connector_parts) == 1:
+            new_rows.append(
+                pd.DataFrame([[connector_parts.pop(), relations, False, None]],
+                             columns=['connector', 'relation', 'is_pair',
+                                      'counterpart'])
+            )
+
+        # double connectors or 'afterward(s)'
+        elif len(connector_parts) == 2:
+            # the form can be 'afterward' or 'afterwards'
+            if 'afterward' in connector_parts:
+                for _ in range(2):
+                    new_rows.append(pd.concat([df, pd.DataFrame(
+                        [[connector_parts.pop(), relations, False, None]],
+                        columns=['connector', 'relation', 'is_pair',
+                                 'counterpart'])])
+                                    )
+            # double connectors: order does not matter
+            else:
+                fst_part, snd_part = connector_parts.pop(), connector_parts.pop()
+                new_rows.append(
+                    pd.DataFrame([[fst_part, relations, True, snd_part]],
+                                 columns=['connector', 'relation', 'is_pair',
+                                          'counterpart'])
+                    )
+                new_rows.append(
+                    pd.DataFrame([[snd_part, relations, True, fst_part]],
+                                 columns=['connector', 'relation', 'is_pair',
+                                          'counterpart'])
+                    )
+
+        for new_row in new_rows:
+            df = pd.concat([df, new_row])
+    return df
 
 connectors_en = find_connectors_en(root_en)
 connectors_de = find_connectors_de(root_de)
@@ -223,6 +271,8 @@ connectors_it = find_connectors_it(root_it)
 
 connectors_en.to_csv('./df_en.csv')
 connectors_de.to_csv('./df_de.csv')
+connectors_it.to_csv('./df_it.csv')
+
 
 # connectors_it = []
 # [connectors_it.append(part.text.lower()) for part in root_it.iter(
