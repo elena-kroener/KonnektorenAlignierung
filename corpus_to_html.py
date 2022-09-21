@@ -1,12 +1,15 @@
 import os
-import json
+import csv
 from corpus_reader import *
 from nltk.tokenize import word_tokenize
 
 def read_connector_list(txt_filepath):
-    """Returns a dict of connectors read from a json file."""
+    """Returns a dict of connectors read from a csv file."""
+    result = {}
     with open(txt_filepath, 'r', encoding='utf-8') as f_in:
-        result = json.load(f_in)
+        reader = csv.DictReader(f_in)
+        for row in reader:
+            result[row['connector']] = {key: value for key, value in row.items() if key in ['relation','is_pair','counterpart']}
     return result
 
 def extract_connectors(triple, connector_list):
@@ -93,9 +96,9 @@ def write_as_html(path_out, sent_triples, connector_list):
 
 if __name__ == '__main__':
     # connector lists
-    CONNECTORS_DE = read_connector_list('data/connector_lists/connectors_de.json')
-    CONNECTORS_EN = read_connector_list('data/connector_lists/connectors_en.json')
-    CONNECTORS_IT = read_connector_list('data/connector_lists/connectors_it.json')
+    CONNECTORS_DE = read_connector_list('lib/df_de.csv')
+    CONNECTORS_EN = read_connector_list('lib/df_en.csv')
+    CONNECTORS_IT = read_connector_list('lib/df_it.csv')
     connector_list = dict()
     {connector_list.update(lang) for lang in [CONNECTORS_DE, CONNECTORS_EN,
                                               CONNECTORS_IT]}
