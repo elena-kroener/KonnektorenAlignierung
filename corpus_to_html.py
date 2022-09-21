@@ -1,3 +1,4 @@
+import ast
 import os
 import csv
 from corpus_reader import *
@@ -10,6 +11,9 @@ def read_connector_list(txt_filepath):
     with open(txt_filepath, 'r', encoding='utf-8') as f_in:
         reader = csv.DictReader(f_in)
         for row in reader:
+            row['connector'] = tuple(row['connector'].split(' '))
+            row['relation'] = ast.literal_eval(row['relation']) # get type list
+            row['is_pair'] = ast.literal_eval(row['is_pair'])
             result[row['connector']] = {key: value for key, value in row.items() if key in ['relation','is_pair','counterpart']}
     return result
 
@@ -19,25 +23,31 @@ def extract_connectors(triple, connector_list):
     already_parsed = [] #remember second part of connector to avoid adding it to connector list on its own
     for lang, sent in triple._asdict().items():
         sent = word_tokenize(sent)
-        for i, token in enumerate(sent):
-            if not token in already_parsed:
-                token = token.lower()
-                if token in connector_list.keys():
-                    if connector_list[token]['is_pair'] == 'False':
-                        connectors_in_triple[lang].append((token, [i], connector_list[token]['relation']))
-                    else:
-                        len_counterpart = len(connector_list[token]['counterpart'].split(' '))
-                        index = 0
-                        for part in ngrams(sent, len_counterpart):
-                            if part == tuple(connector_list[token]['counterpart'].split(' ')):
-                                all_indices = [i] # get indices of original token and all counter parts
-                                for i in range(len_counterpart):
-                                    all_indices += [index + i]
-                                connectors_in_triple[lang].append(([token] + list(part), all_indices, connector_list[token]['relation']))
-                                already_parsed += list(part)
-                                break
-                            else:
-                                index += len_counterpart
+        for n in range(4, 0, -1):
+            i = 0
+            for token in ngrams(sent, n):
+                if not token in already_parsed:
+                    token = tuple([word.lower() for word in token])
+                    if token in connector_list.keys():
+                        index_of_connector = [i]
+                        for index in range(1, n): # get indices of multiple worded connectors
+                            index_of_connector += [i + index]
+                        if not connector_list[token]['is_pair']:
+                            connectors_in_triple[lang].append((list(token), index_of_connector, connector_list[token]['relation']))
+                        else:
+                            len_counterpart = len(connector_list[token]['counterpart'].split(' '))
+                            index = 0
+                            for part in ngrams(sent, len_counterpart):
+                                if part == tuple(connector_list[token]['counterpart'].split(' ')):
+                                    #all_indices = index_of_connector # get indices of original token and all counter parts
+                                    for i in range(len_counterpart):
+                                        index_of_connector += [index + i]
+                                    connectors_in_triple[lang].append((list(token) + list(part), index_of_connector, connector_list[token]['relation']))
+                                    already_parsed.append(part)
+                                    break
+                                else:
+                                    index += len_counterpart
+                i += 1
     return connectors_in_triple
 
 def allign_connectors(extracted_connectors):
@@ -123,7 +133,6 @@ if __name__ == '__main__':
     connector_list = dict()
     {connector_list.update(lang) for lang in [CONNECTORS_DE, CONNECTORS_EN,
                                               CONNECTORS_IT]}
-    print(connector_list)
     # get all sentence triples
     corpus_root = os.path.join('data', 'corpus')
     all_sent_triples = all_xmls_to_sent_triples(
