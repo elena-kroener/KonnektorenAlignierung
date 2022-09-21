@@ -2,6 +2,7 @@ import os
 import csv
 from corpus_reader import *
 from nltk.tokenize import word_tokenize
+from nltk import ngrams
 
 def read_connector_list(txt_filepath):
     """Returns a dict of connectors read from a csv file."""
@@ -15,15 +16,33 @@ def read_connector_list(txt_filepath):
 def extract_connectors(triple, connector_list):
     """Extracts connectors as dict with their index and their relation(s)"""
     connectors_in_triple = {key: list() for key in ['de', 'en', 'it']}
+    already_parsed = [] #remember second part of connector to avoid adding it to connector list on its own
     for lang, sent in triple._asdict().items():
-        for i, token in enumerate(word_tokenize(sent)):
-            if token.lower() in connector_list.keys():
-                connectors_in_triple[lang].append((token, i, connector_list.get(token)))
+        sent = word_tokenize(sent)
+        for i, token in enumerate(sent):
+            if not token in already_parsed:
+                token = token.lower()
+                if token in connector_list.keys():
+                    if connector_list[token]['is_pair'] == 'False':
+                        connectors_in_triple[lang].append((token, [i], connector_list[token]['relation']))
+                    else:
+                        len_counterpart = len(connector_list[token]['counterpart'].split(' '))
+                        index = 0
+                        for part in ngrams(sent, len_counterpart):
+                            if part == tuple(connector_list[token]['counterpart'].split(' ')):
+                                all_indices = [i] # get indices of original token and all counter parts
+                                for i in range(len_counterpart):
+                                    all_indices += [index + i]
+                                connectors_in_triple[lang].append(([token] + list(part), all_indices, connector_list[token]['relation']))
+                                already_parsed += list(part)
+                                break
+                            else:
+                                index += len_counterpart
     return connectors_in_triple
 
 def allign_connectors(extracted_connectors):
     """
-    Allign connectors into a dict of the form {color: (index_de, index_en, index_it)}
+    Allign connectors into a dict of the form {color: ([index_de], [index_en], [index_it])}
     """
     colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple', 'orange', 'brown', 'magenta', 'coral', 'beer', 'khaki']
     result = {'de': dict(), 'en': dict(), 'it': dict()}
@@ -63,9 +82,11 @@ def allign_connectors(extracted_connectors):
     if all_aligned:
         for i, lang in langs.items():
             for color in all_aligned.keys():
-                this_langs_index = all_aligned[color][i]
-                r = {this_langs_index: color}
-                result[lang].update(r)
+                this_langs_indices = all_aligned[color][i]
+                if this_langs_indices:
+                    for index in this_langs_indices:
+                        r = {index: color}
+                        result[lang].update(r)
     return result
 
 def sent_to_html_str(sent, aligned_connectors, lang):
@@ -102,6 +123,7 @@ if __name__ == '__main__':
     connector_list = dict()
     {connector_list.update(lang) for lang in [CONNECTORS_DE, CONNECTORS_EN,
                                               CONNECTORS_IT]}
+    print(connector_list)
     # get all sentence triples
     corpus_root = os.path.join('data', 'corpus')
     all_sent_triples = all_xmls_to_sent_triples(
