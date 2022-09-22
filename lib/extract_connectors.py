@@ -5,19 +5,18 @@
 # See also:
 # https://docs.python.org/3/library/xml.etree.elementtree.html
 
-import json
 import xml.etree.ElementTree as ET
 import re
 
 import pandas as pd
 
-tree_de = ET.parse('KonnektorenAlignierung/data/ConAnoConnectorLexicon.xml')
+tree_de = ET.parse('../data/ConAnoConnectorLexicon.xml')
 root_de = tree_de.getroot()
 
-tree_en = ET.parse('KonnektorenAlignierung/data/en_dimlex.xml')
+tree_en = ET.parse('../data/en_dimlex.xml')
 root_en = tree_en.getroot()
 
-tree_it = ET.parse('KonnektorenAlignierung/data/LICO-v.1.0.xml')
+tree_it = ET.parse('../data/LICO-v.1.0.xml')
 root_it = tree_it.getroot()
 
 # # Print root tag and look at its attributes
@@ -73,8 +72,10 @@ def find_connectors_en(xml_root):
                     rel = relation.attrib['sense'].lower()
                     if rel.find('.') == -1: # if no subcategory is specified
                         relations.append(rel)
-                    else: # need to be adjusted
-                       relations.append(rel[:rel.find('.')])
+                    else: # one main relation + one sub-relation (e.g. comparison.contrast)
+                        relations.append(
+                            '.'.join(re.split('[.]+', rel)[:2])
+                            )
         relations = list(set(relations))
 
         # append df row
@@ -147,7 +148,9 @@ def find_connectors_de(xml_root):
                             if rel.find('.') == -1:
                                 relations.append(rel)
                             else:
-                                relations.append(rel[:rel.find('.')])
+                                relations.append(
+                                    '.'.join(re.split('[.]+', rel)[:2])
+                                    )
             connectors_relations[connector] = list(set(relations))
 
         # append df row
@@ -225,7 +228,9 @@ def find_connectors_it(xml_root):
                             if rel.find(':') == -1:
                                 relations.append(rel)
                             else:
-                                relations.append(rel[:rel.find(':')])
+                                relations.append(
+                                    '.'.join(re.split('[:]+', rel)[:2])
+                                    )
             connectors_relations[connector] = list(set(relations))
 
         # append df row
@@ -272,24 +277,3 @@ connectors_it = find_connectors_it(root_it)
 connectors_en.to_csv('./df_en.csv')
 connectors_de.to_csv('./df_de.csv')
 connectors_it.to_csv('./df_it.csv')
-
-
-# connectors_it = []
-# [connectors_it.append(part.text.lower()) for part in root_it.iter(
-#     'part') if part.text.lower() not in connectors_it]
-
-
-def write_dict_to_json(connector_rel_dict, path_out):
-    with open(path_out, mode='w', encoding='utf-8') as f_out:
-        json.dump(connector_rel_dict, f_out, ensure_ascii=False)
-
-# write_dict_to_json(connectors_de,
-#                    '../data/connector_lists'
-#                    '/connectors_de.json')
-# write_dict_to_json(connectors_en,
-#                    '../data/connector_lists/connectors_en'
-#                    '.json')
-# write_dict_to_json(connectors_it,
-#                    '../data/connector_lists/connectors_it'
-#                    '.json')
-
