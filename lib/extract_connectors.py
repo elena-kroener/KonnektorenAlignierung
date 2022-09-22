@@ -7,126 +7,34 @@
 
 import xml.etree.ElementTree as ET
 import re
-
 import pandas as pd
 
-tree_de = ET.parse('../data/ConAnoConnectorLexicon.xml')
-root_de = tree_de.getroot()
-
-tree_en = ET.parse('../data/en_dimlex.xml')
-root_en = tree_en.getroot()
-
-tree_it = ET.parse('../data/LICO-v.1.0.xml')
-root_it = tree_it.getroot()
-
-# # Print root tag and look at its attributes
-# print(root_de.tag)
-# print(root_de.attrib)
-#
-# # Navigate through children with for loop
-# for child in root_de:
-#     print(child.tag, child.attrib)
-#
-# # Iterate over all sub tags
-# print([elem.tag for elem in root_de.iter()])
-#
-# # Print attributes of specific tag
-# for part in root_de.iter('part'):
-#     print(part.attrib)
-#
-# # Print text for specific tag
-# for part in root_de.iter('part'):
-#     print(part.text)
-#
-# # Findall - does not work as supposed to, path doesn't work
-# for part in root_de.findall("./entry/orth/part/[type='single']"):
-#     print(part.text)
-
-# connectors_de = []
-# # for part in root_de.iter('part'):
-# #     connector_low = part.text.lower()
-# #     if connector_low not in connectors_de:
-# #         connectors_de.append(connector_low)
-# [connectors_de.append(part.text.lower()) for part in root_de.iter('part') if
-#  part.text.lower() not in connectors_de]
 
 def find_connectors_en(xml_root):
     """returns a dataframe with coloumns: connector | relation | is_pair | counterpart."""
     df = pd.DataFrame(columns=['connector', 'relation', 'is_pair', 'counterpart'])
-    count = 0
     for entry in xml_root.iter('entry'):
-        count += 1
         # find connector/ connector pairs
-        for orths in entry.iter('orths'):
-            connector_parts = set()
-            for orth in orths.iter('orth'):
-                connector_parts.update(
-                    part.text.lower() for part in orth.iter('part')
-                    )
-        
+        connector_parts = _find_connector_parts_for_an_entry(entry, lang='en')
         # find all relations
-        relations = []
-        for syn in entry.iter('syn'):
-            for sem in syn.iter('sem'):
-                for relation in sem.iter('pdtb2_relation'):
-                    rel = relation.attrib['sense'].lower()
-                    if rel.find('.') == -1: # if no subcategory is specified
-                        relations.append(rel)
-                    else: # one main relation + one sub-relation (e.g. comparison.contrast)
-                        relations.append(
-                            '.'.join(re.split('[.]+', rel)[:2])
-                            )
-        relations = list(set(relations))
-
+        relations = _find_all_relations_for_an_entry(entry, lang='en')
         # append df row
-        new_rows = []
-        if len(connector_parts) == 1:
-            new_rows.append(pd.DataFrame([[connector_parts.pop(), relations, False, None]],
-                                    columns=['connector', 'relation', 'is_pair', 'counterpart'])
-                            )
-        
-        # double connectors or 'afterward(s)'
-        elif len(connector_parts) == 2:
-            # the form can be 'afterward' or 'afterwards' 
-            if 'afterward' in connector_parts: 
-                for _ in range(2):      
-                    new_rows.append(pd.concat([df, pd.DataFrame([[connector_parts.pop(), relations, False, None]],
-                                            columns=['connector', 'relation', 'is_pair', 'counterpart'])])
-                                    )
-            # double connectors: order does not matter
-            else:
-                fst_part, snd_part = connector_parts.pop(), connector_parts.pop()
-                new_rows.append(pd.DataFrame([[fst_part, relations, True, snd_part]],
-                                        columns=['connector', 'relation', 'is_pair', 'counterpart'])
-                                )
-                new_rows.append(pd.DataFrame([[snd_part, relations, True, fst_part]],
-                                        columns=['connector', 'relation', 'is_pair', 'counterpart'])
-                                )
+        new_rows = _generate_connector_df_rows(connector_parts, relations)
                 
         for new_row in new_rows:
             df = pd.concat([df, new_row])
-        
-    # print(df)
-    # print(count)
+ 
     return df
 
 def find_connectors_de(xml_root):
     df = pd.DataFrame(
         columns=['connector', 'relation', 'is_pair', 'counterpart'])
-    count = 0
     for entry in xml_root.iter('entry'):
-        count += 1
-        # find connector/ connector pairs
-        for orth in entry.iter('orth'):
-            connector_parts = set()
-            for orth in orth.iter('orth'):
-                connector_parts.update(
-                    part.text.lower() for part in orth.iter('part')
-                )
-
+        connector_parts = _find_connector_parts_for_an_entry(entry, lang='de')
+        
         connectors_relations = {}
-    # Traverse tree to check each entry for connector alternatives and their
-    # relations
+        # Traverse tree to check each entry for connector alternatives and their
+        # relations
         # List of connector alternatives
         connector_alternatives = []
         for orth in entry.iter('orth'):
@@ -135,6 +43,7 @@ def find_connectors_de(xml_root):
             # Clean spaces before commas
             for connector in connector_alternatives:
                 connector = re.sub('\s,', ',', connector)
+            
             # List of relations for connector_alternatives
             relations = []
             for syn in entry.iter('syn'):
@@ -154,59 +63,22 @@ def find_connectors_de(xml_root):
             connectors_relations[connector] = list(set(relations))
 
         # append df row
-        new_rows = []
-        if len(connector_parts) == 1:
-            new_rows.append(
-                pd.DataFrame([[connector_parts.pop(), relations, False, None]],
-                             columns=['connector', 'relation', 'is_pair',
-                                      'counterpart'])
-            )
-
-        # double connectors or 'afterward(s)'
-        elif len(connector_parts) == 2:
-            # the form can be 'afterward' or 'afterwards'
-            if 'afterward' in connector_parts:
-                for _ in range(2):
-                    new_rows.append(pd.concat([df, pd.DataFrame(
-                        [[connector_parts.pop(), relations, False, None]],
-                        columns=['connector', 'relation', 'is_pair',
-                                 'counterpart'])])
-                                    )
-            # double connectors: order does not matter
-            else:
-                fst_part, snd_part = connector_parts.pop(), connector_parts.pop()
-                new_rows.append(
-                    pd.DataFrame([[fst_part, relations, True, snd_part]],
-                                 columns=['connector', 'relation', 'is_pair',
-                                          'counterpart'])
-                    )
-                new_rows.append(
-                    pd.DataFrame([[snd_part, relations, True, fst_part]],
-                                 columns=['connector', 'relation', 'is_pair',
-                                          'counterpart'])
-                    )
-
+        new_rows = _generate_connector_df_rows(connector_parts, relations)
         for new_row in new_rows:
             df = pd.concat([df, new_row])
     return df
 
+
 def find_connectors_it(xml_root):
     df = pd.DataFrame(
         columns=['connector', 'relation', 'is_pair', 'counterpart'])
-    count = 0
     for entry in xml_root.iter('entry'):
-        count += 1
         # find connector/ connector pairs
-        for orth in entry.iter('orth'):
-            connector_parts = set()
-            for orth in orth.iter('orth'):
-                connector_parts.update(
-                    part.text.lower() for part in orth.iter('part')
-                )
-
+        connector_parts = _find_connector_parts_for_an_entry(entry, lang='it')
+        
         connectors_relations = {}
-    # Traverse tree to check each entry for connector alternatives and their
-    # relations
+        # Traverse tree to check each entry for connector alternatives and their
+        # relations
         # List of connector alternatives
         connector_alternatives = []
         for orth in entry.iter('orth'):
@@ -215,6 +87,7 @@ def find_connectors_it(xml_root):
             # Clean spaces before commas
             for connector in connector_alternatives:
                 connector = re.sub('\s,', ',', connector)
+            
             # List of relations for connector_alternatives
             relations = []
             for syn in entry.iter('syn'):
@@ -234,46 +107,78 @@ def find_connectors_it(xml_root):
             connectors_relations[connector] = list(set(relations))
 
         # append df row
-        new_rows = []
-        if len(connector_parts) == 1:
-            new_rows.append(
-                pd.DataFrame([[connector_parts.pop(), relations, False, None]],
-                             columns=['connector', 'relation', 'is_pair',
-                                      'counterpart'])
-            )
-
-        # double connectors or 'afterward(s)'
-        elif len(connector_parts) == 2:
-            # the form can be 'afterward' or 'afterwards'
-            if 'afterward' in connector_parts:
-                for _ in range(2):
-                    new_rows.append(pd.concat([df, pd.DataFrame(
-                        [[connector_parts.pop(), relations, False, None]],
-                        columns=['connector', 'relation', 'is_pair',
-                                 'counterpart'])])
-                                    )
-            # double connectors: order does not matter
-            else:
-                fst_part, snd_part = connector_parts.pop(), connector_parts.pop()
-                new_rows.append(
-                    pd.DataFrame([[fst_part, relations, True, snd_part]],
-                                 columns=['connector', 'relation', 'is_pair',
-                                          'counterpart'])
-                    )
-                new_rows.append(
-                    pd.DataFrame([[snd_part, relations, True, fst_part]],
-                                 columns=['connector', 'relation', 'is_pair',
-                                          'counterpart'])
-                    )
-
+        new_rows = _generate_connector_df_rows(connector_parts, relations)
         for new_row in new_rows:
             df = pd.concat([df, new_row])
+
     return df
 
-connectors_en = find_connectors_en(root_en)
-connectors_de = find_connectors_de(root_de)
-connectors_it = find_connectors_it(root_it)
+def _find_connector_parts_for_an_entry(entry, lang):
+    """find connector/ connector pairs for an entry in the corpus xml-file."""
+    connector_parts = set()
+    if lang.lower() == 'en':
+        for orths in entry.iter('orths'):
+            for orth in orths.iter('orth'):
+                connector_parts.update(
+                    part.text.lower() for part in orth.iter('part')
+                    )
+    elif lang.lower() in ['de', 'it']:
+        for orths in entry.iter('orth'):
+            for orth in orths.iter('orth'):
+                connector_parts.update(
+                    part.text.lower() for part in orth.iter('part')
+                    )
+    return connector_parts
 
-connectors_en.to_csv('./df_en.csv')
-connectors_de.to_csv('./df_de.csv')
-connectors_it.to_csv('./df_it.csv')
+def _find_all_relations_for_an_entry(entry, lang):
+    relations = []
+    if lang == 'en':
+        for syn in entry.iter('syn'):
+            for sem in syn.iter('sem'):
+                for relation in sem.iter('pdtb2_relation'):
+                    rel = relation.attrib['sense'].lower()
+                    if rel.find('.') == -1: # if no subcategory is specified
+                        relations.append(rel)
+                    else: # one main relation + one sub-relation (e.g. comparison.contrast)
+                        relations.append(
+                            '.'.join(re.split('[.]+', rel)[:2])
+                            )
+    return list(set(relations))
+
+def _generate_connector_df_rows(connector_parts, all_relations):
+    new_rows = []
+    if len(connector_parts) == 1:
+        new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
+                                columns=['connector', 'relation', 'is_pair', 'counterpart'])
+                        )
+    # double connectors or 'afterward(s)'
+    elif len(connector_parts) == 2:
+        # for EN: the form can be 'afterward' or 'afterwards' 
+        if 'afterward' in connector_parts: 
+            for _ in range(2):      
+                new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
+                                        columns=['connector', 'relation', 'is_pair', 'counterpart']
+                                ))
+        # double connectors: order does not matter
+        else:
+            fst_part, snd_part = connector_parts.pop(), connector_parts.pop()
+            new_rows.append(pd.DataFrame([[fst_part, all_relations, True, snd_part]],
+                                    columns=['connector', 'relation', 'is_pair', 'counterpart'])
+                            )
+            new_rows.append(pd.DataFrame([[snd_part, all_relations, True, fst_part]],
+                                    columns=['connector', 'relation', 'is_pair', 'counterpart'])
+                            )
+    return new_rows
+
+if __name__ == '__main__':
+    root_de = ET.parse('../data/ConAnoConnectorLexicon.xml').getroot()
+    root_en = ET.parse('../data/en_dimlex.xml').getroot()
+    root_it = ET.parse('../data/LICO-v.1.0.xml').getroot()
+
+    connectors_de = find_connectors_de(root_de)
+    connectors_en = find_connectors_en(root_en)
+    connectors_it = find_connectors_it(root_it)
+
+    connectors_de.to_csv('../data/connectors_df/df_de.csv')
+    connectors_en.to_csv('../data/connectors_df/df_en.csv')
+    connectors_it.to_csv('../data/connectors_df/df_it.csv')
