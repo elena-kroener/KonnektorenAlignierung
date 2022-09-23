@@ -72,10 +72,11 @@ def allign_connectors(extracted_connectors):
         and len(extracted_connectors['en']) == 1 \
         and len(extracted_connectors['it']) == 1:
         color = colors.pop(0)
-        all_aligned = {color: []}
-        for key, value in extracted_connectors.items():
-            index = value[0][1]
-            all_aligned[color].append(index)
+        # get {lang: {index: color, index: color}}
+        for lang in extracted_connectors.keys():
+            for index in extracted_connectors[lang][0][1]:
+                result[lang].update({index: color})
+        return result
     else:
         align = []
         lang_with_most_cons = max((len(v), k) for k, v in extracted_connectors.items())[1]
@@ -95,19 +96,12 @@ def allign_connectors(extracted_connectors):
                                     already_aligned[lang].append(con[1])
                                     break
                     align_con[lang] = index
-                align.append([align_con['de'], align_con['en'], align_con['it']])
-        all_aligned = {colors.pop(0): triple for triple in align}
-    # Restructure into {lang: {index: color, index: color}}
-    langs = {0: 'de', 1: 'en', 2: 'it'}
-    if all_aligned:
-        for i, lang in langs.items():
-            for color in all_aligned.keys():
-                this_langs_indices = all_aligned[color][i]
-                if this_langs_indices:
-                    for index in this_langs_indices:
-                        r = {index: color}
-                        result[lang].update(r)
-    return result
+                color = colors.pop(0)
+                for lang, index_list in align_con.items():
+                    if index_list:
+                        for index in index_list:
+                            result[lang].update({index: color})
+        return result
 
 def sent_to_html_str(sent, aligned_connectors, lang):
     """Converts a sentence to a html-string."""
