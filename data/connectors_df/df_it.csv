@@ -3,14 +3,14 @@
 0,a condizione che,['contingency.condition'],False,
 0,a dire il vero,['comparison.concession'],False,
 0,a dispetto di,['comparison.concession'],False,
-0,a meno che,['contingency.negative-condition'],True,a meno di
 0,a meno di,['contingency.negative-condition'],True,a meno che
+0,a meno che,['contingency.negative-condition'],True,a meno di
 0,a onor del vero,['comparison.concession'],False,
 0,a tal fine,['contingency.purpose'],False,
-0,per esempio,['expansion.instantiation'],True,ad esempio
 0,ad esempio,['expansion.instantiation'],True,per esempio
-0,in ogni modo,['comparison.concession'],True,ad ogni modo
+0,per esempio,['expansion.instantiation'],True,ad esempio
 0,ad ogni modo,['comparison.concession'],True,in ogni modo
+0,in ogni modo,['comparison.concession'],True,ad ogni modo
 0,affinché,['contingency.purpose'],False,
 0,al che,"['temporal.asynchronous', 'contingency.cause']",False,
 0,al contrario,"['comparison.contrast', 'comparison.concession']",False,
@@ -70,8 +70,8 @@
 0,frattanto,['temporal.syncrony'],False,
 0,fuorché,['expansion.exception'],False,
 0,giacché,['contingency.cause'],False,
-0,in altri termini,['expansion.equivalence'],True,in altre parole
 0,in altre parole,['expansion.equivalence'],True,in altri termini
+0,in altri termini,['expansion.equivalence'],True,in altre parole
 0,in base a,['contingency.cause'],False,
 0,in breve,['expansion.specification'],False,
 0,in caso contrario,['contingency.negative-condition'],False,
@@ -92,17 +92,17 @@
 0,in sintesi,['expansion.specification'],False,
 0,in sostanza,['expansion.specification'],False,
 0,in ultima analisi,[],False,
-0,infatti,['expansion.instantiation'],True,difatti
 0,difatti,['expansion.instantiation'],True,infatti
+0,infatti,['expansion.instantiation'],True,difatti
 0,infine,[],False,
-0,innanzitutto,[],True,innanzi tutto
 0,innanzi tutto,[],True,innanzitutto
+0,innanzitutto,[],True,innanzi tutto
 0,inoltre,['expansion.conjunction'],False,
 0,insomma,['expansion.specification'],False,
 0,intanto,['temporal.syncrony'],False,
 0,invece,"['comparison.contrast', 'comparison.concession']",False,
-0,invece che,['expansion.substitution'],True,invece di
 0,invece di,['expansion.substitution'],True,invece che
+0,invece che,['expansion.substitution'],True,invece di
 0,invero,[],False,
 0,ma,"['comparison.contrast', 'comparison.concession']",False,
 0,malgrado,['comparison.concession'],False,
@@ -146,8 +146,8 @@
 0,perché,['contingency.cause'],False,
 0,perciò,['ccontingency.cause'],False,
 0,però,"['comparison.contrast', 'comparison.concession']",False,
-0,perfino,"['expansion.conjunction', 'comparison.concession']",True,persino
 0,persino,"['expansion.conjunction', 'comparison.concession']",True,perfino
+0,perfino,"['expansion.conjunction', 'comparison.concession']",True,persino
 0,pertanto,['contingency.cause'],False,
 0,più che altro,[],False,
 0,più tardi,['temporal.asynchronous'],False,

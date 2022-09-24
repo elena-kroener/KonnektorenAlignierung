@@ -164,7 +164,6 @@ def _generate_connector_df_rows(connector_parts, all_relations):
                                 ))
         # for DE: 'solang' and 'solange' are the same
         elif 'solange' in connector_parts:
-            print("hi")
             for _ in range(2):      
                 new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
                                         columns=['connector', 'relation', 'is_pair', 'counterpart']
@@ -181,14 +180,14 @@ def _generate_connector_df_rows(connector_parts, all_relations):
     return new_rows
 
 if __name__ == '__main__':
-    root_de = ET.parse('../data/ConAnoConnectorLexicon.xml').getroot()
-    root_en = ET.parse('../data/en_dimlex.xml').getroot()
-    root_it = ET.parse('../data/LICO-v.1.0.xml').getroot()
+    root_de = ET.parse('data/connectors_xml/ConAnoConnectorLexicon.xml').getroot()
+    root_en = ET.parse('data/connectors_xml/en_dimlex.xml').getroot()
+    root_it = ET.parse('data/connectors_xml/LICO-v.1.0.xml').getroot()
 
     connectors_de = find_connectors_de(root_de)
     connectors_en = find_connectors_en(root_en)
     connectors_it = find_connectors_it(root_it)
 
-    connectors_de.to_csv('../data/connectors_df/df_de.csv')
-    connectors_en.to_csv('../data/connectors_df/df_en.csv')
-    connectors_it.to_csv('../data/connectors_df/df_it.csv')
+    connectors_de.to_csv('data/connectors_df/df_de.csv')
+    connectors_en.to_csv('data/connectors_df/df_en.csv')
+    connectors_it.to_csv('data/connectors_df/df_it.csv')

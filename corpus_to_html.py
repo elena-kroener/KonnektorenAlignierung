@@ -168,4 +168,4 @@ if __name__ == '__main__':
     #                      'After all we want to get our view of the world neither through the lens of the government nor through that of rich media entrepreneurs . ',
     #                      'Dopo tutto , non vogliamo ottenere la nostra visione del mondo attraverso le lenti del governo o attraverso quelle dei ricchi imprenditori dei media .')]
     # write to html
-    write_as_html(os.path.join('data', 'output.html'), all_sent_triples, connector_list)
+    write_as_html(os.path.join('output', 'output.html'), all_sent_triples, connector_list)
