@@ -4274,10 +4274,12 @@
   <entry id="140" word="not only/but">
     <orths>
       <orth canonical="0" orth_id="140o1" type="cont">
-        <part type="phrasal">Not only/but</part>
+        <part type="phrasal">Not only</part>
+        <part type="phrasal">but</part>
       </orth>
       <orth canonical="1" orth_id="140o2" type="cont">
-        <part type="phrasal">not only/but</part>
+        <part type="phrasal">not only</part>
+        <part type="phrasal">but</part>
       </orth>
     </orths>
     <syn>

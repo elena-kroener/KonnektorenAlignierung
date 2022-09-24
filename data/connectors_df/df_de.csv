@@ -1,0 +1,328 @@
+,connector,relation,is_pair,counterpart
+0,aber,"['comparison.concession', 'comparison.concession', 'comparison.contrast', 'expansion.conjunction']",False,
+0,abgesehen davon,"['expansion.conjunction', 'expansion.exception', 'comparison.concession', 'comparison.concession']",False,
+0,"abgesehen davon , daß","['expansion.conjunction', 'expansion.exception']",True,"abgesehen davon , dass"
+0,"abgesehen davon , dass","['expansion.conjunction', 'expansion.exception']",True,"abgesehen davon , daß"
+0,alldieweil,"['contingency.cause', 'comparison.contrast', 'temporal.synchronous']",False,
+0,allein,['comparison.contrast'],False,
+0,allenfalls,"['expansion.instantiation', 'comparison.contrast']",False,
+0,allerdings,"['comparison.contrast', 'comparison.concession', 'comparison.concession']",False,
+0,als,"['temporal.synchronous', 'temporal.asynchronous']",False,
+0,als ob,"['expansion.equivalence', 'comparison.concession']",False,
+0,als wenn,['expansion.manner'],False,
+0,alsdann,"['temporal.asynchronous', 'expansion.conjunction']",False,
+0,also,['contingency.cause'],False,
+0,andrerseits,"['comparison.contrast', 'expansion.conjunction']",True,andererseits
+0,andererseits,"['comparison.contrast', 'expansion.conjunction']",True,andrerseits
+0,andernfalls,"['contingency.negative-condition', 'contingency.negative-condition']",True,anderenfalls
+0,anderenfalls,"['contingency.negative-condition', 'contingency.negative-condition']",True,andernfalls
+0,anders gesagt,['expansion.equivalence'],False,
+0,angenommen,['contingency.condition'],False,
+0,"angenommen , dass","['expansion.manner', 'contingency.condition']",True,"angenommen , daß"
+0,"angenommen , daß","['expansion.manner', 'contingency.condition']",True,"angenommen , dass"
+0,angesichts,"['contingency.cause', 'temporal.synchronous', 'comparison.concession']",False,
+0,angesichts dessen,['contingency.cause'],False,
+0,"angesichts dessen , dass",['contingency.cause'],True,"angesichts dessen , daß"
+0,"angesichts dessen , daß",['contingency.cause'],True,"angesichts dessen , dass"
+0,anhand,['expansion.manner'],True,an hand
+0,an hand,['expansion.manner'],True,anhand
+0,anschließend,"['temporal.asynchronous', 'expansion.conjunction']",True,anschliessend
+0,anschliessend,"['temporal.asynchronous', 'expansion.conjunction']",True,anschließend
+0,ansonsten,"['expansion.exception', 'contingency.negative-condition']",False,
+0,anstatt,"['expansion.substitution', 'expansion.substitution']",False,
+0,anstatt daß,['expansion.substitution'],True,anstatt dass
+0,anstatt dass,['expansion.substitution'],True,anstatt daß
+0,an stelle dessen,['expansion.substitution'],True,anstelle dessen
+0,anstelle dessen,['expansion.substitution'],True,an stelle dessen
+0,auch,['expansion.conjunction'],False,
+0,hin,"['contingency.cause', 'contingency.purpose']",True,auf
+0,auf,"['contingency.cause', 'contingency.purpose']",True,hin
+0,auf daß,['contingency.purpose'],True,auf dass
+0,auf dass,['contingency.purpose'],True,auf daß
+0,aufgrund,['contingency.cause'],True,auf grund
+0,auf grund,['contingency.cause'],True,aufgrund
+0,aufgrund dessen,"['contingency.cause', 'contingency.cause']",True,auf grund dessen
+0,auf grund dessen,"['contingency.cause', 'contingency.cause']",True,aufgrund dessen
+0,ausgenommen,['expansion.exception'],False,
+0,"ausgenommen, dass",['expansion.exception'],True,"ausgenommen, daß"
+0,"ausgenommen, daß",['expansion.exception'],True,"ausgenommen, dass"
+0,ausser,['expansion.exception'],True,außer
+0,außer,['expansion.exception'],True,ausser
+0,ausser dass,['expansion.exception'],True,außer dass
+0,außer dass,['expansion.exception'],True,ausser dass
+0,ausser wenn,['expansion.exception'],True,außer wenn
+0,außer wenn,['expansion.exception'],True,ausser wenn
+0,ausserdem,['expansion.conjunction'],True,außerdem
+0,außerdem,['expansion.conjunction'],True,ausserdem
+0,bspw.,['expansion.instantiation'],True,beispielsweise
+0,beispielsweise,['expansion.instantiation'],True,bspw.
+0,besonders,"['expansion.instantiation', 'expansion.level-of-detail']",False,
+0,bevor,['temporal.asynchronous'],False,
+0,bzw.,"['expansion.level-of-detail', 'expansion.disjunction', 'expansion.conjunction']",True,beziehungsweise
+0,beziehungsweise,"['expansion.level-of-detail', 'expansion.disjunction', 'expansion.conjunction']",True,bzw.
+0,bis,['temporal.asynchronous'],False,
+0,bis daß,"['temporal.asynchronous', 'contingency.purpose']",True,bis dass
+0,bis dass,"['temporal.asynchronous', 'contingency.purpose']",True,bis daß
+0,bloß,['comparison.concession'],True,bloss
+0,bloss,['comparison.concession'],True,bloß
+0,da,"['contingency.cause', 'contingency.cause']",False,
+0,dabei,"['temporal.synchronous', 'comparison.concession', 'expansion.manner', 'comparison.concession']",False,
+0,dadurch,"['contingency.cause', 'expansion.manner']",False,
+0,dafuer,['comparison.contrast'],True,dafür
+0,dafür,['comparison.contrast'],True,dafuer
+0,dagegen,['comparison.contrast'],False,
+0,daher,['contingency.cause'],False,
+0,dahingegen,['comparison.contrast'],False,
+0,damit,"['contingency.purpose', 'contingency.cause']",False,
+0,danach,['temporal.asynchronous'],False,
+0,daneben,['expansion.conjunction'],False,
+0,dank,['contingency.cause'],False,
+0,dann,"['contingency.condition', 'temporal.asynchronous', 'temporal.synchronous', 'expansion.conjunction', 'contingency.cause']",False,
+0,drauf,['temporal.asynchronous'],True,darauf
+0,darauf,['temporal.asynchronous'],True,drauf
+0,daraufhin,"['contingency.cause', 'temporal.asynchronous', 'contingency.cause']",False,
+0,darum,['contingency.cause'],True,drum
+0,drum,['contingency.cause'],True,darum
+0,darueber hinaus,['expansion.conjunction'],True,darüber hinaus
+0,darüber hinaus,['expansion.conjunction'],True,darueber hinaus
+0,dass,"['contingency.purpose', 'contingency.cause']",True,daß
+0,daß,"['contingency.purpose', 'contingency.cause']",True,dass
+0,davon abgesehen,"['expansion.exception', 'expansion.conjunction']",False,
+0,"davon abgesehen, dass","['expansion.conjunction', 'expansion.exception', 'comparison.concession']",True,"davon abgesehen, daß"
+0,"davon abgesehen, daß","['expansion.conjunction', 'expansion.exception', 'comparison.concession']",True,"davon abgesehen, dass"
+0,davor,['temporal.asynchronous'],False,
+0,dazu,"['contingency.purpose', 'expansion.conjunction']",False,
+0,"dazu, dass",['expansion.conjunction'],True,"dazu, daß"
+0,"dazu, daß",['expansion.conjunction'],True,"dazu, dass"
+0,dementgegen,['comparison.contrast'],False,
+0,dementsprechend,['contingency.cause'],False,
+0,demgegenüber,"['comparison.contrast', 'contingency.cause']",True,demgegenueber
+0,demgegenueber,"['comparison.contrast', 'contingency.cause']",True,demgegenüber
+0,demgemaeß,['contingency.cause'],True,demgemäß
+0,demgemäß,['contingency.cause'],True,demgemaeß
+0,demnach,['contingency.cause'],False,
+0,demzufolge,['contingency.cause'],False,
+0,denn,['contingency.cause'],False,
+0,dennoch,['comparison.concession'],False,
+0,derweilen,"['expansion.conjunction', 'temporal.synchronous', 'expansion.conjunction', 'temporal.synchronous']",True,derweil
+0,derweil,"['expansion.conjunction', 'temporal.synchronous', 'expansion.conjunction', 'temporal.synchronous']",True,derweilen
+0,des weiteren,['expansion.conjunction'],True,desweiteren
+0,desweiteren,['expansion.conjunction'],True,des weiteren
+0,desgleichen,['expansion.conjunction'],False,
+0,deshalb,['contingency.cause'],False,
+0,deswegen,['contingency.cause'],False,
+0,doch,"['comparison.concession', 'comparison.contrast']",False,
+0,drum,['contingency.cause'],False,
+0,durch,['contingency.cause'],False,
+0,eben,"['contingency.cause', 'temporal.asynchronous']",False,
+0,ebenfalls,"['expansion.conjunction', 'expansion.equivalence']",False,
+0,ebensowenig,['expansion.equivalence'],True,ebenso wenig
+0,ebenso wenig,['expansion.equivalence'],True,ebensowenig
+0,eh,['contingency.cause'],False,
+0,ehe,['temporal.asynchronous'],False,
+0,einerseits,['comparison.contrast'],False,
+0,endlich,['temporal.asynchronous'],False,
+0,entgegen,['comparison.concession'],False,
+0,entsprechend,['contingency.cause'],False,
+0,oder,['expansion.disjunction'],True,entweder
+0,entweder,['expansion.disjunction'],True,oder
+0,ergo,['contingency.cause'],False,
+0,erstens,['expansion.conjunction'],False,
+0,erst mal,['temporal.asynchronous'],False,
+0,es sei denn,['contingency.negative-condition'],False,
+0,falls,['contingency.condition'],False,
+0,ferner,['expansion.conjunction'],False,
+0,folgerichtig,['contingency.cause'],False,
+0,folglich,['contingency.cause'],False,
+0,freilich,"['comparison.concession', 'comparison.concession', 'comparison.contrast', 'expansion.exception', 'expansion.level-of-detail']",False,
+0,für,['contingency.purpose'],True,fuer
+0,fuer,['contingency.purpose'],True,für
+0,gemaeß,['contingency.cause'],True,gemäß
+0,gemäß,['contingency.cause'],True,gemaeß
+0,genauer gesagt,['expansion.level-of-detail'],True,genau gesagt
+0,genau gesagt,['expansion.level-of-detail'],True,genauer gesagt
+0,geschweige,['expansion.conjunction'],True,geschweige denn
+0,geschweige denn,['expansion.conjunction'],True,geschweige
+0,gesetzt,['contingency.condition'],True,gesetzt den fall
+0,gesetzt den fall,['contingency.condition'],True,gesetzt
+0,gleichermassen,['expansion.equivalence'],True,gleichermaßen
+0,gleichermaßen,['expansion.equivalence'],True,gleichermassen
+0,gleichfalls,['expansion.equivalence'],False,
+0,gleichwohl,"['comparison.concession', 'comparison.concession']",False,
+0,gleichzeitig,"['comparison.contrast', 'expansion.conjunction', 'temporal.synchronous']",False,
+0,halber,['contingency.purpose'],False,
+0,halt,['contingency.cause'],False,
+0,hierauf,['temporal.asynchronous'],False,
+0,hieraufhin,['temporal.asynchronous'],False,
+0,hierdurch,"['expansion.manner', 'contingency.cause']",False,
+0,hierfür,['contingency.purpose'],True,hierfuer
+0,hierfuer,['contingency.purpose'],True,hierfür
+0,hiermit,['expansion.manner'],False,
+0,hiernach,"['contingency.cause', 'temporal.asynchronous']",False,
+0,hierzu,['contingency.purpose'],False,
+0,hingegen,['comparison.contrast'],False,
+0,hinterher,['temporal.asynchronous'],False,
+0,hoechstens,['contingency.negative-condition'],True,höchstens
+0,höchstens,['contingency.negative-condition'],True,hoechstens
+0,immerhin,"['contingency.cause', 'comparison.contrast', 'comparison.concession']",False,
+0,im uebrigen,"['expansion.conjunction', 'expansion.exception']",True,im übrigen
+0,im übrigen,"['expansion.conjunction', 'expansion.exception']",True,im uebrigen
+0,in anbetracht dessen,['contingency.cause'],False,
+0,indem,['expansion.manner'],False,
+0,indessen,"['temporal.synchronous', 'comparison.contrast', 'temporal.synchronous', 'comparison.contrast']",True,indes
+0,indes,"['temporal.synchronous', 'comparison.contrast', 'temporal.synchronous', 'comparison.contrast']",True,indessen
+0,infolge,['contingency.cause'],False,
+0,infolgedessen,['contingency.cause'],False,
+0,insbesondere,['expansion.instantiation'],False,
+0,insofern,['contingency.cause'],False,
+0,als,['contingency.cause'],True,insofern
+0,insofern,['contingency.cause'],True,als
+0,insoweit,[],False,
+0,inzwischen,"['temporal.synchronous', 'temporal.asynchronous']",False,
+0,jedoch,"['comparison.contrast', 'comparison.concession']",False,
+0,je nachdem,"['contingency.condition', 'contingency.condition']",False,
+0,kaum,"['temporal.asynchronous', 'temporal.asynchronous']",False,
+0,kaum dass,['temporal.asynchronous'],True,kaum daß
+0,kaum daß,['temporal.asynchronous'],True,kaum dass
+0,konsequenterweise,"['contingency.cause', 'contingency.condition', 'expansion.conjunction']",False,
+0,kraft,['expansion.manner'],False,
+0,kurz gesagt,['expansion.level-of-detail'],False,
+0,mal,['expansion.conjunction'],False,
+0,mangels,['comparison.concession'],False,
+0,m.a.w.,['expansion.equivalence'],True,mit anderen worten
+0,mit anderen worten,['expansion.equivalence'],True,m.a.w.
+0,mithin,"['contingency.cause', 'comparison.concession']",False,
+0,nachdem,['temporal.asynchronous'],False,
+0,nachher,['temporal.asynchronous'],False,
+0,nebenbei,"['expansion.conjunction', 'temporal.synchronous']",False,
+0,nebenbei gesagt,['expansion.conjunction'],False,
+0,nebenher,"['temporal.synchronous', 'expansion.conjunction']",False,
+0,nicht umsonst,['contingency.cause'],False,
+0,nichtsdestominder,['comparison.concession'],False,
+0,nichtsdestoweniger,['comparison.concession'],True,nichtsdestotrotz
+0,nichtsdestotrotz,['comparison.concession'],True,nichtsdestoweniger
+0,noch,"['temporal.synchronous', 'contingency.cause', 'expansion.conjunction']",False,
+0,nun einmal,[],False,
+0,nur,"['comparison.contrast', 'comparison.concession']",False,
+0,nur dass,['comparison.contrast'],True,nur daß
+0,nur daß,['comparison.contrast'],True,nur dass
+0,naemlich,"['contingency.cause', 'expansion.level-of-detail']",True,nämlich
+0,nämlich,"['contingency.cause', 'expansion.level-of-detail']",True,naemlich
+0,ob,[],False,
+0,obendrein,['expansion.conjunction'],False,
+0,obgleich,"['comparison.concession', 'comparison.concession']",False,
+0,obschon,['comparison.concession'],False,
+0,obwohl,['comparison.concession'],False,
+0,obzwar,"['comparison.concession', 'expansion.conjunction']",False,
+0,oder,['expansion.disjunction'],False,
+0,ohne dass,['expansion.conjunction'],True,ohne daß
+0,ohne daß,['expansion.conjunction'],True,ohne dass
+0,ohnedies,['contingency.cause'],False,
+0,ohnehin,['contingency.cause'],False,
+0,qua,['expansion.manner'],False,
+0,schließlich,"['temporal.asynchronous', 'contingency.cause']",False,
+0,schlussendlich,"['temporal.asynchronous', 'temporal.synchronous']",False,
+0,sei es,['expansion.level-of-detail'],False,
+0,seit,"['temporal.asynchronous', 'temporal.asynchronous']",False,
+0,seitdem,"['temporal.asynchronous', 'temporal.asynchronous']",False,
+0,seither,"['temporal.asynchronous', 'temporal.synchronous']",False,
+0,sintemalen,['contingency.cause'],True,sintemal
+0,sintemal,['contingency.cause'],True,sintemalen
+0,so oder so,[],False,
+0,sobald,['temporal.synchronous'],False,
+0,sodann,"['temporal.asynchronous', 'contingency.condition', 'expansion.conjunction']",False,
+0,sofern,['contingency.condition'],False,
+0,sogleich,"['temporal.asynchronous', 'temporal.synchronous']",False,
+0,solang,"['temporal.synchronous', 'contingency.condition', 'temporal.asynchronous']",False,
+0,solange,"['temporal.synchronous', 'contingency.condition', 'temporal.asynchronous']",False,
+0,somit,"['contingency.cause', 'expansion.manner', 'expansion.level-of-detail', 'expansion.equivalence']",False,
+0,sonach,['contingency.cause'],False,
+0,sondern,"['expansion.substitution', 'expansion.conjunction']",False,
+0,sonst,['contingency.negative-condition'],False,
+0,sooft,"['temporal.synchronous', 'contingency.condition']",False,
+0,sosehr,"['comparison.contrast', 'comparison.concession']",False,
+0,soweit,['contingency.condition'],False,
+0,sowie,"['expansion.conjunction', 'expansion.conjunction']",False,
+0,sowieso,['contingency.cause'],False,
+0,später,['temporal.asynchronous'],True,spaeter
+0,spaeter,['temporal.asynchronous'],True,später
+0,sprich,['expansion.equivalence'],False,
+0,statt,"['expansion.substitution', 'expansion.substitution']",False,
+0,stattdessen,['expansion.substitution'],False,
+0,teils,['expansion.conjunction'],False,
+0,trotz,['comparison.concession'],False,
+0,trotzdem,"['comparison.concession', 'comparison.concession']",False,
+0,um,['contingency.purpose'],True,willen
+0,willen,['contingency.purpose'],True,um
+0,ueberdies,['expansion.conjunction'],True,überdies
+0,überdies,['expansion.conjunction'],True,ueberdies
+0,überhaupt,['expansion.conjunction'],True,ueberhaupt
+0,ueberhaupt,['expansion.conjunction'],True,überhaupt
+0,umso mehr,['contingency.cause'],True,um so mehr
+0,um so mehr,['contingency.cause'],True,umso mehr
+0,umso,['contingency.cause'],True,als
+0,als,['contingency.cause'],True,umso
+0,unbeschadet dessen,['comparison.concession'],False,
+0,"unbeschadet dessen, daß",['comparison.concession'],True,"unbeschadet dessen, dass"
+0,"unbeschadet dessen, dass",['comparison.concession'],True,"unbeschadet dessen, daß"
+0,und,"['expansion.conjunction', 'temporal.asynchronous', 'comparison.contrast', 'contingency.cause']",False,
+0,und zwar,['expansion.level-of-detail'],False,
+0,unterdessen,"['comparison.contrast', 'temporal.synchronous']",False,
+0,"unterstellt, dass",['contingency.condition'],True,"unterstellt, daß"
+0,"unterstellt, daß",['contingency.condition'],True,"unterstellt, dass"
+0,vermoege,[],True,vermöge
+0,vermöge,[],True,vermoege
+0,vielmehr,"['expansion.substitution', 'expansion.conjunction']",False,
+0,wegen,['contingency.cause'],True,von
+0,von,['contingency.cause'],True,wegen
+0,von daher,['contingency.cause'],False,
+0,vorausgesetzt,['contingency.condition'],False,
+0,"vorausgesetzt, dass",['contingency.condition'],True,"vorausgesetzt, daß"
+0,"vorausgesetzt, daß",['contingency.condition'],True,"vorausgesetzt, dass"
+0,vorbehaltlich dessen,['contingency.condition'],False,
+0,"vorbehaltlich dessen, dass",['contingency.condition'],True,"vorbehaltlich dessen, daß"
+0,"vorbehaltlich dessen, daß",['contingency.condition'],True,"vorbehaltlich dessen, dass"
+0,vorher,['temporal.asynchronous'],False,
+0,warum,['contingency.cause'],False,
+0,weder,['expansion.conjunction'],True,noch
+0,noch,['expansion.conjunction'],True,weder
+0,wegen,['contingency.cause'],False,
+0,weil,"['contingency.cause', 'contingency.cause']",False,
+0,weiterhin,['expansion.conjunction'],False,
+0,wenn,"['temporal.synchronous', 'contingency.condition']",False,
+0,wenn,"['comparison.concession', 'comparison.concession']",True,auch
+0,auch,"['comparison.concession', 'comparison.concession']",True,wenn
+0,wenngleich,"['comparison.concession', 'comparison.concession']",False,
+0,weshalb,['contingency.cause'],False,
+0,weswegen,['contingency.cause'],False,
+0,wie,"['temporal.synchronous', 'expansion.equivalence']",False,
+0,wiederum,"['expansion.conjunction', 'comparison.concession', 'comparison.contrast']",False,
+0,wo,"['temporal.synchronous', 'contingency.cause']",False,
+0,wobei,"['temporal.synchronous', 'expansion.level-of-detail', 'comparison.concession', 'contingency.cause', 'expansion.manner']",False,
+0,wodurch,"['contingency.cause', 'expansion.manner']",False,
+0,wogegen,['comparison.contrast'],False,
+0,wohingegen,"['comparison.contrast', 'comparison.concession', 'expansion.conjunction']",False,
+0,womit,"['contingency.cause', 'expansion.manner', 'expansion.conjunction']",False,
+0,wonach,['temporal.asynchronous'],False,
+0,worauf,['temporal.asynchronous'],False,
+0,woraufhin,"['temporal.asynchronous', 'contingency.cause']",False,
+0,während,"['temporal.synchronous', 'comparison.contrast', 'temporal.synchronous']",True,waehrend
+0,waehrend,"['temporal.synchronous', 'comparison.contrast', 'temporal.synchronous']",True,während
+0,währenddessen,"['temporal.synchronous', 'comparison.contrast', 'temporal.synchronous', 'comparison.contrast']",True,waehrenddessen
+0,waehrenddessen,"['temporal.synchronous', 'comparison.contrast', 'temporal.synchronous', 'comparison.contrast']",True,währenddessen
+0,zudem,['expansion.conjunction'],False,
+0,zuerst,['temporal.asynchronous'],False,
+0,zugleich,"['temporal.synchronous', 'expansion.conjunction', 'comparison.contrast']",False,
+0,zu guter letzt,"['temporal.asynchronous', 'expansion.conjunction']",False,
+0,zuletzt,['temporal.asynchronous'],False,
+0,zum anderen,"['expansion.conjunction', 'comparison.contrast']",False,
+0,zum einen,"['expansion.conjunction', 'comparison.contrast']",False,
+0,zumal,"['expansion.level-of-detail', 'contingency.cause']",False,
+0,zunaechst,"['temporal.asynchronous', 'expansion.conjunction']",True,zunächst
+0,zunächst,"['temporal.asynchronous', 'expansion.conjunction']",True,zunaechst
+0,zusaetzlich,['expansion.conjunction'],True,zusätzlich
+0,zusätzlich,['expansion.conjunction'],True,zusaetzlich
+0,zuvor,['temporal.asynchronous'],False,
+0,zwar,['comparison.concession'],False,
+0,zwecks,['contingency.purpose'],False,
+0,zweitens,"['temporal.asynchronous', 'expansion.conjunction']",False,
