@@ -62,7 +62,7 @@ def allign_connectors(extracted_connectors):
     """
     Allign connectors into a dict of the form {lang: {color: ([index_de], [index_en], [index_it])}}
     """
-    colors = ['red', 'blue', 'green', 'pink', 'purple', 'orange', 'brown', 'magenta', 'coral', 'beer', 'khaki']
+    colors = ['#b71c1c', '#1a237e', '#00c853', '#512da8', '#ff5722', '#4e342e', '#e91e63', '#26c6da', '#ffd600', '#9e9d24', '#2962ff', '#455a64', '#004d40']
     result = {'de': dict(), 'en': dict(), 'it': dict()}
     # if no connector in the sentence
     if len(extracted_connectors['de']) == 0 \
@@ -107,6 +107,14 @@ def allign_connectors(extracted_connectors):
                     if index_list:
                         for index in index_list:
                             result[lang].update({index: color})
+        # color all connectors that couldn't be aligned on their own
+        not_aligned = {'de': list(), 'en': list(), 'it': list()}
+        for lang in extracted_connectors.keys():
+            for connector in extracted_connectors[lang]:
+                if connector[1][0] not in result[lang].keys():
+                    color = colors.pop(0)
+                    for index in connector[1]:
+                        result[lang].update({index: color})
         return result
 
 def sent_to_html_str(sent, aligned_connectors, lang):
