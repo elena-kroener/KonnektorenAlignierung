@@ -11,7 +11,7 @@ import pandas as pd
 
 
 def find_connectors_en(xml_root):
-    """returns a dataframe with coloumns: connector | relation | is_pair | counterpart."""
+    """returns a dataframe with coloumns: connector | relation | is_pair | counterpart for EN connectors."""
     df = pd.DataFrame(columns=['connector', 'relation', 'is_pair', 'counterpart'])
     for entry in xml_root.iter('entry'):
         # find connector/ connector pairs
@@ -27,6 +27,7 @@ def find_connectors_en(xml_root):
     return df
 
 def find_connectors_de(xml_root):
+    """returns a dataframe with coloumns: connector | relation | is_pair | counterpart for DE connectors."""
     df = pd.DataFrame(
         columns=['connector', 'relation', 'is_pair', 'counterpart'])
     for entry in xml_root.iter('entry'):
@@ -70,6 +71,7 @@ def find_connectors_de(xml_root):
 
 
 def find_connectors_it(xml_root):
+    """returns a dataframe with coloumns: connector | relation | is_pair | counterpart. for IT connectors."""
     df = pd.DataFrame(
         columns=['connector', 'relation', 'is_pair', 'counterpart'])
     for entry in xml_root.iter('entry'):
@@ -114,7 +116,7 @@ def find_connectors_it(xml_root):
     return df
 
 def _find_connector_parts_for_an_entry(entry, lang):
-    """find connector/ connector pairs for an entry in the corpus xml-file."""
+    """find connector/ connector pairs for an entry in the connector xml-file."""
     connector_parts = set()
     if lang.lower() == 'en':
         for orths in entry.iter('orths'):
@@ -130,6 +132,7 @@ def _find_connector_parts_for_an_entry(entry, lang):
     return connector_parts
 
 def _find_all_relations_for_an_entry(entry, lang):
+    """find relation for an entry in the connector xml-file."""
     relations = []
     if lang == 'en':
         for syn in entry.iter('syn'):
@@ -145,6 +148,7 @@ def _find_all_relations_for_an_entry(entry, lang):
     return list(set(relations))
 
 def _generate_connector_df_rows(connector_parts, all_relations):
+    """creates DataFrame (row) for a connector entry."""
     new_rows = []
     if len(connector_parts) == 1:
         new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
