@@ -123,11 +123,10 @@ def _find_connector_parts_for_an_entry(entry, lang):
                     part.text.lower() for part in orth.iter('part')
                     )
     elif lang.lower() in ['de', 'it']:
-        for orths in entry.iter('orth'):
-            for orth in orths.iter('orth'):
-                connector_parts.update(
-                    part.text.lower() for part in orth.iter('part')
-                    )
+        for orth in entry.iter('orth'):
+            connector_parts.update(
+                part.text.lower() for part in orth.iter('part')
+                )
     return connector_parts
 
 def _find_all_relations_for_an_entry(entry, lang):
@@ -155,6 +154,13 @@ def _generate_connector_df_rows(connector_parts, all_relations):
     elif len(connector_parts) == 2:
         # for EN: the form can be 'afterward' or 'afterwards' 
         if 'afterward' in connector_parts: 
+            for _ in range(2):      
+                new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
+                                        columns=['connector', 'relation', 'is_pair', 'counterpart']
+                                ))
+        # for DE: 'solang' and 'solange' are the same
+        elif 'solange' in connector_parts:
+            print("hi")
             for _ in range(2):      
                 new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
                                         columns=['connector', 'relation', 'is_pair', 'counterpart']
