@@ -19,9 +19,9 @@ pip install -r requirement.txt
 ```
 python3 corpus_to_html.py
 ```
-The HTML-file which visualizes the corresponding connectors in the parallel corpus will be saved as `output.html` in `output/` .
+The HTML-file which visualizes the corresponding connectors in the parallel corpus will be saved as `output.html` in `output/`, as well as the alignment statistics as `csv` files.
 
 ## Program Structure and Flow
 1. `extract_connectors.py` extracts the connectors and the relevant information (e.g. connector relations) from the [connective-lex.info](connective-lex.info) in `xml`-format (in `data/connectors_xml/`) and saves them as pandas DataFrames in `csv`-format in `data/connectgors_df/`.
 2. `corpus_reader.py` generates the sentence triples (in English, German and Italien) from the "argumentative microtext corpus" in `xml`-format (in `data/corpus/`).
-3. `corpus_to_html.py` creates the HTML-file which visualizes the corresponding connectors in the parallel corpus and saves it as `output.html` in `output/`.
+3. `corpus_to_html.py` creates the HTML-file which visualizes the corresponding connectors in the parallel corpus and saves it as `output.html` in `output/`, as well as the alignment statistics as `csv` files.
