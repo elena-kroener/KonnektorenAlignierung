@@ -4,7 +4,6 @@ import csv
 from corpus_reader import *
 from nltk.tokenize import word_tokenize
 from nltk import ngrams
-from collections import namedtuple
 
 def read_connector_list(txt_filepath):
     """Returns a dict of connectors read from a csv file."""
@@ -77,9 +76,9 @@ def allign_connectors(extracted_connectors):
         for lang in extracted_connectors.keys():
             for index in extracted_connectors[lang][0][1]:
                 result[lang].update({index: color})
+    
         return result
     else:
-        align = []
         # find language with most connectors in this sentence
         lang_with_most_cons = max((len(v), k) for k, v in extracted_connectors.items())[1]
         other_langs = ['de', 'en', 'it']
