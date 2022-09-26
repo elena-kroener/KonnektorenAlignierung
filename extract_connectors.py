@@ -168,6 +168,12 @@ def _generate_connector_df_rows(connector_parts, all_relations):
                 new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
                                         columns=['connector', 'relation', 'is_pair', 'counterpart']
                                 ))
+        # DE: alles mit 'für' und 'fuer'
+        elif next(iter(connector_parts)).endswith('für') or next(iter(connector_parts)).endswith('fuer'):
+            for _ in range(2):      
+                new_rows.append(pd.DataFrame([[connector_parts.pop(), all_relations, False, None]],
+                                        columns=['connector', 'relation', 'is_pair', 'counterpart']
+                                ))
         # double connectors: order does not matter
         else:
             fst_part, snd_part = connector_parts.pop(), connector_parts.pop()

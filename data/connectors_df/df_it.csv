@@ -3,12 +3,12 @@
 0,a condizione che,['contingency.condition'],False,
 0,a dire il vero,['comparison.concession'],False,
 0,a dispetto di,['comparison.concession'],False,
-0,a meno di,['contingency.negative-condition'],True,a meno che
 0,a meno che,['contingency.negative-condition'],True,a meno di
+0,a meno di,['contingency.negative-condition'],True,a meno che
 0,a onor del vero,['comparison.concession'],False,
 0,a tal fine,['contingency.purpose'],False,
-0,ad esempio,['expansion.instantiation'],True,per esempio
 0,per esempio,['expansion.instantiation'],True,ad esempio
+0,ad esempio,['expansion.instantiation'],True,per esempio
 0,ad ogni modo,['comparison.concession'],True,in ogni modo
 0,in ogni modo,['comparison.concession'],True,ad ogni modo
 0,affinché,['contingency.purpose'],False,
@@ -18,8 +18,8 @@
 0,al posto di,['expansion.substitution'],False,
 0,alla fin fine,[],False,
 0,alla fine,['temporal.asynchronous'],False,
-0,con lo scopo di,['contingency.purpose'],True,allo scopo di
 0,allo scopo di,['contingency.purpose'],True,con lo scopo di
+0,con lo scopo di,['contingency.purpose'],True,allo scopo di
 0,allo stesso modo,['comparison.similarity'],False,
 0,allora,"['temporal.asynchronous', 'contingency.cause']",False,
 0,altrimenti,['contingency.negative-condition'],False,
@@ -70,8 +70,8 @@
 0,frattanto,['temporal.syncrony'],False,
 0,fuorché,['expansion.exception'],False,
 0,giacché,['contingency.cause'],False,
-0,in altre parole,['expansion.equivalence'],True,in altri termini
 0,in altri termini,['expansion.equivalence'],True,in altre parole
+0,in altre parole,['expansion.equivalence'],True,in altri termini
 0,in base a,['contingency.cause'],False,
 0,in breve,['expansion.specification'],False,
 0,in caso contrario,['contingency.negative-condition'],False,
@@ -95,14 +95,14 @@
 0,difatti,['expansion.instantiation'],True,infatti
 0,infatti,['expansion.instantiation'],True,difatti
 0,infine,[],False,
-0,innanzi tutto,[],True,innanzitutto
 0,innanzitutto,[],True,innanzi tutto
+0,innanzi tutto,[],True,innanzitutto
 0,inoltre,['expansion.conjunction'],False,
 0,insomma,['expansion.specification'],False,
 0,intanto,['temporal.syncrony'],False,
 0,invece,"['comparison.contrast', 'comparison.concession']",False,
-0,invece di,['expansion.substitution'],True,invece che
 0,invece che,['expansion.substitution'],True,invece di
+0,invece di,['expansion.substitution'],True,invece che
 0,invero,[],False,
 0,ma,"['comparison.contrast', 'comparison.concession']",False,
 0,malgrado,['comparison.concession'],False,
@@ -133,16 +133,16 @@
 0,per il fatto che,['contingency.cause'],False,
 0,per il resto,['expansion.exception'],False,
 0,per la qual cosa,[],False,
-0,per meglio dire,[],True,o meglio
 0,o meglio,[],True,per meglio dire
+0,per meglio dire,[],True,o meglio
 0,per poco che,[],False,
 0,per prima cosa,[],False,
 0,per quanto,"['contingency.condition', 'comparison.concession']",False,
 0,per questa ragione,['ccontingency.cause'],False,
 0,per questo,['contingency.cause'],False,
 0,per questo motivo,['contingency.cause'],False,
-0,peraltro,[],True,per altro
 0,per altro,[],True,peraltro
+0,peraltro,[],True,per altro
 0,perché,['contingency.cause'],False,
 0,perciò,['ccontingency.cause'],False,
 0,però,"['comparison.contrast', 'comparison.concession']",False,
@@ -156,8 +156,8 @@
 0,poiché,"['contingency.cause', 'consequence']",False,
 0,precedentemente,['temporal.asynchronous'],False,
 0,prima,['temporal.asynchronous'],False,
-0,prima di,['temporal.asynchronous'],True,prima che
 0,prima che,['temporal.asynchronous'],True,prima di
+0,prima di,['temporal.asynchronous'],True,prima che
 0,purché,['contingency.condition'],False,
 0,pure,"['expansion.conjunction', 'comparison.concession']",False,
 0,quando,"['temporal.syncrony', 'contingency.condition', 'temporal.asynchronous']",False,
