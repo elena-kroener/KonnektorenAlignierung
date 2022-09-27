@@ -129,13 +129,14 @@ def sent_to_html_str(sent, aligned_connectors, lang):
     return ''.join(html_elements)
 
 def write_as_html(path_out, sent_triples, connector_list):
-    """Converts all sentence triples to html-strings and writes to the given path and 
+    """Converts all sentence triples to html-strings and writes to the given path and
     records alignment statistics in txt-files."""
     with open(path_out, mode='w', encoding='utf-8') as f_out:
         de_en_stat = Counter()
         de_it_stat = Counter()
         en_it_stat = Counter()
 
+        f_out.write('<meta charset="utf-8">\n')
         for triple_id, triple in enumerate(sent_triples):
             extracted_connectors = extract_connectors(triple, connector_list)
             aligned_connectors = allign_connectors(extracted_connectors)
@@ -149,7 +150,7 @@ def write_as_html(path_out, sent_triples, connector_list):
 
             # update stats
             _update_alignment_stats(triple, aligned_connectors, de_en_stat, de_it_stat, en_it_stat)
-        
+
         _stat_as_csv(de_en_stat, 'output/de_en_stat.csv')
         _stat_as_csv(de_it_stat, 'output/de_it_stat.csv')
         _stat_as_csv(en_it_stat, 'output/en_it_stat.csv')
@@ -159,14 +160,14 @@ def _update_alignment_stats(sent_triple, aligned_connectors, de_en_stat, de_it_s
     tokenized_sents['de'] = word_tokenize(sent_triple.de)
     tokenized_sents['en'] = word_tokenize(sent_triple.en)
     tokenized_sents['it'] = word_tokenize(sent_triple.it)
-    
+
     # figure out alignments according to color
     color_dict = dict()
     for lang, value in aligned_connectors.items():
         for i, color in value.items():
             if color not in color_dict:
-                color_dict[color] = {'de':[], 'en':[], 'it':[]}       
-            
+                color_dict[color] = {'de':[], 'en':[], 'it':[]}
+
             color_dict[color][lang].append(tokenized_sents[lang][i])
 
     for color in color_dict:
