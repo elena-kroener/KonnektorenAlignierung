@@ -1,10 +1,11 @@
 import ast
-from collections import Counter
-import os
 import csv
+import os
+from collections import Counter
 from corpus_reader import *
-from nltk.tokenize import word_tokenize
 from nltk import ngrams
+from nltk.tokenize import word_tokenize
+
 
 def read_connector_list(txt_filepath):
     """Returns a dict of connectors read from a csv file."""
@@ -13,17 +14,21 @@ def read_connector_list(txt_filepath):
         reader = csv.DictReader(f_in)
         for row in reader:
             row['connector'] = tuple(row['connector'].split(' '))
-            row['relation'] = ast.literal_eval(row['relation']) # get type list
+            # get the right types: list and boolean
+            row['relation'] = ast.literal_eval(row['relation'])
             row['is_pair'] = ast.literal_eval(row['is_pair'])
-            result[row['connector']] = {key: value for key, value in row.items() if key in ['relation','is_pair','counterpart']}
+            result[row['connector']] = {key: value for key, value in row.items()
+                                        if key in ['relation', 'is_pair',
+                                                   'counterpart']}
     return result
 
 def extract_connectors(triple, connector_list):
     """Extracts connectors as dict with their index and their relation(s)"""
     connectors_in_triple = {key: list() for key in ['de', 'en', 'it']}
     for lang, sent in triple._asdict().items():
-        already_parsed = [] # remember indices of already seen connectors for multi-worded connectors and those with a counterpart
+        already_parsed = []  # remember indices of already seen connectors
         sent = word_tokenize(sent)
+        # seach input in 4-grams, then 3-grams, then bi-grams, finally uni-grams
         for n in range(4, 0, -1):
             i = 0
             for token in ngrams(sent, n):
@@ -31,38 +36,62 @@ def extract_connectors(triple, connector_list):
                     token = tuple([word.lower() for word in token])
                     if token in connector_list.keys():
                         index_of_connector = [i]
-                        for index in range(1, n): # get indices of multiple worded connectors
+                        # get indices of multiple worded connectors
+                        for index in range(1, n):
                             index_of_connector += [i + index]
-                        # if connector doesn't have a counterpart (e.g. neither-nor):
+                        # if connector doesn't have a counterpart:
                         if not connector_list[token]['is_pair']:
-                            connectors_in_triple[lang].append((list(token), index_of_connector, connector_list[token]['relation']))
+                            connectors_in_triple[lang].append(
+                                 (list(token),
+                                 index_of_connector,
+                                 connector_list[token]['relation'])
+                                 )
                             already_parsed += index_of_connector
+                        # if connector DOES have a counterpart:
                         else:
-                            len_counterpart = len(connector_list[token]['counterpart'].split(' '))
+                            counterpart = tuple(
+                                          connector_list[token]['counterpart']
+                                          .split(' ')
+                                          )
+                            len_counterpart = len(counterpart)
                             index = 0
                             found_counterpart = False
-                            # search the sentence in ngrams of the length of the counterpart
+                            # search the sentence in ngrams of the length
+                            #    of the counterpart
                             for part in ngrams(sent, len_counterpart):
-                                if part == tuple(connector_list[token]['counterpart'].split(' ')):
+                                if part == counterpart:
                                     for i_counter in range(len_counterpart):
-                                        index_of_connector += [index + i_counter]
-                                    connectors_in_triple[lang].append((list(token) + list(part), index_of_connector, connector_list[token]['relation']))
+                                        index_of_connector += [index+i_counter]
+                                    connectors_in_triple[lang].append(
+                                         (list(token) + list(part),
+                                         index_of_connector,
+                                         connector_list[token]['relation'])
+                                         )
                                     already_parsed += index_of_connector
                                     found_counterpart = True
                                     break
                                 else:
                                     index += len_counterpart
-                            # if no counterpart found: add to found connectors on its own
+                            # if no counterpart found
+                            #     and exists also as single connector:
+                            #     add to found connectors on its own
                             if not found_counterpart:
-                                connectors_in_triple[lang].append((list(token), index_of_connector, connector_list[token]['relation']))
+                                connectors_in_triple[lang].append(
+                                    (list(token),
+                                    index_of_connector,
+                                    connector_list[token]['relation'])
+                                    )
                 i += 1
     return connectors_in_triple
 
 def allign_connectors(extracted_connectors):
     """
-    Allign connectors into a dict of the form {lang: {color: ([index_de], [index_en], [index_it])}}
+    Allign connectors sentence-triple-wise into a dict of the form
+    {lang: {color: ([index_de], [index_en], [index_it])}}
     """
-    colors = ['#b71c1c', '#1a237e', '#00c853', '#512da8', '#ff5722', '#4e342e', '#e91e63', '#26c6da', '#ffd600', '#9e9d24', '#2962ff', '#455a64', '#004d40']
+    colors = ['#b71c1c', '#1a237e', '#00c853', '#512da8', '#ff5722', '#4e342e',
+              '#e91e63', '#26c6da', '#ffd600', '#9e9d24', '#2962ff', '#455a64',
+              '#004d40']
     result = {'de': dict(), 'en': dict(), 'it': dict()}
     # if no connector in the sentence
     if len(extracted_connectors['de']) == 0 \
@@ -79,11 +108,12 @@ def allign_connectors(extracted_connectors):
                 result[lang].update({index: color})
     else:
         # find language with most connectors in this sentence
-        lang_with_most_cons = max((len(v), k) for k, v in extracted_connectors.items())[1]
+        lang_with_most_cons = max((len(v), k) for k, v
+                                   in extracted_connectors.items())[1]
         other_langs = ['de', 'en', 'it']
         other_langs.remove(lang_with_most_cons)
         already_aligned = {lang: [] for lang in other_langs}
-        # iterate through connectors of language with most connectors in this sentence
+        # iterate through connectors of language with most connectors in sentence
         for first_lang_connector in extracted_connectors[lang_with_most_cons]:
             # connectors without a relation are ignored
             if first_lang_connector[2]:
@@ -93,14 +123,16 @@ def allign_connectors(extracted_connectors):
                     for con in extracted_connectors[lang]:
                         if not con[1] in already_aligned[lang]:
                             if con[2]:
-                                # if the connectors share a relation, they get aligned
-                                if any(relation in con[2] for relation in first_lang_connector[2]):
+                                # align connectors if they share a relation
+                                if any(relation in con[2] for relation
+                                       in first_lang_connector[2]):
                                     index = con[1]
                                     already_aligned[lang].append(con[1])
                                     break
                     align_con[lang] = index
                 color = colors.pop(0)
-                # save all aligned connectors for this sentence with the same color-key
+                # save all aligned connectors for this sentence
+                #    with the same color-key
                 for lang, index_list in align_con.items():
                     if index_list:
                         for index in index_list:
