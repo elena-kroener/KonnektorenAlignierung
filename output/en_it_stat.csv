@@ -1,0 +1,266 @@
+('', ''),370
+('and', 'e'),93
+('', 'per'),57
+('for', ''),51
+('for', 'per'),43
+('', 'e'),42
+('and', ''),41
+('', 'o'),35
+('or', ''),32
+('but', ''),30
+('', 'solo'),28
+('with', ''),25
+('', 'come'),24
+('as', ''),23
+('however', 'tuttavia'),21
+('', 'da'),16
+('', 'se'),15
+('', 'ma'),14
+('', 'dopo'),13
+('also', ''),12
+('also', 'anche'),12
+('if', 'se'),12
+('', 'anche'),10
+('then', ''),9
+('when', ''),9
+('besides', 'inoltre'),9
+('but', 'ma'),8
+('after all', ''),8
+('for', 'perché'),8
+('', 'prima'),8
+('without', ''),8
+('since', 'poiché'),7
+('particularly', ''),7
+('as', 'per'),6
+('and', 'da'),6
+('although', 'anche se'),6
+('as', 'in quanto'),6
+('plus', 'inoltre'),6
+('and', 'per'),5
+('but', 'e'),5
+('for', 'da'),5
+('and', 'inoltre'),5
+('indeed', ''),5
+('rather', ''),5
+('', 'in realtà'),5
+('upon', ''),5
+('if', ''),5
+('and', 'ma'),5
+('', 'così'),5
+('given', ''),5
+('with', 'e'),5
+('and', 'anche'),5
+('still', ''),4
+('as', 'perché'),4
+('also', 'e'),4
+('', 'pertanto'),4
+('as', 'e'),4
+('therefore', 'quindi'),4
+('yet', 'tuttavia'),4
+('hence', 'quindi'),4
+('even if', 'anche se'),4
+('as long as', ''),4
+('therefore', ''),4
+('and', 'tuttavia'),4
+('rather', 'ma'),3
+('furthermore', 'anche'),3
+('but', 'anche'),3
+('with', 'per'),3
+('yet', 'ma'),3
+('', 'perché'),3
+('anyway', ''),3
+('for', 'quindi'),3
+('after', ''),3
+('nevertheless', 'tuttavia'),3
+('', 'per questo motivo'),3
+('after', 'dopo'),3
+('also', 'inoltre'),3
+('', 'anche se'),3
+('despite', 'nonostante'),3
+('because', 'perché'),3
+('further', ''),3
+('', 'quando'),3
+('however', 'e'),3
+('if then', 'se'),3
+('furthermore', 'inoltre'),3
+('', 'solamente'),3
+('with', 'anche'),2
+('', 'per il resto'),2
+('aside from', ''),2
+('with', 'da'),2
+('', 'un lato'),2
+('essentially', ''),2
+('however', ''),2
+('in the end', ''),2
+('and', 'comunque'),2
+('anyway', 'e'),2
+('not only but', 'anche'),2
+('later', 'più tardi'),2
+('with', 'quindi'),2
+('as', 'ma'),2
+('and', 'solo'),2
+('still', 'ma'),2
+('when', 'da'),2
+('thus', 'pertanto'),2
+('while', ''),2
+('without', 'anche'),2
+('while', 'mentre'),2
+('else', ''),2
+('given', 'per'),2
+('though', 'tuttavia'),2
+('thus', ''),2
+('for one thing', ''),2
+('or', 'e'),2
+('without', 'se'),2
+('and', 'dopo'),2
+('thus', 'quindi'),2
+('so', ''),2
+('although', 'sebbene'),2
+('', 'ogni volta che'),2
+('as', 'poiché'),2
+('before', 'prima'),2
+('and', 'ad esempio'),2
+('', 'con questo'),1
+('even though', 'anche se'),1
+('rather', 'piuttosto'),1
+('when', 'pertanto'),1
+('', 'di fatto'),1
+('overall', 'e'),1
+('for', 'per cui'),1
+('ultimately', 'anche'),1
+('moreover', ''),1
+('for instance', 'esempio'),1
+('in fact', 'e'),1
+('and', 'allora'),1
+('as', 'dopo'),1
+('with', 'allora'),1
+('if', 'così'),1
+('and', 'poiché'),1
+('', 'alla fine'),1
+('', 'poiché'),1
+('', 'dopotutto'),1
+('after all', 'ma'),1
+('even if', 'anche'),1
+('besides', ''),1
+('as', 'allo stesso modo'),1
+('since', 'perché'),1
+('since', 'in quanto'),1
+('', 'quindi'),1
+('therefore', 'di conseguenza'),1
+('accordingly', 'per'),1
+('', 'a meno che'),1
+('unless', ''),1
+('yet', 'però'),1
+('as long as', 'quando'),1
+('with', 'perché'),1
+('after all', 'anche'),1
+('as', 'così'),1
+('finally', 'quando'),1
+('as long as', 'e'),1
+('besides', 'e'),1
+('', 'per cui'),1
+('therefore', 'per questo motivo'),1
+('neither nor', ''),1
+('when', 'se'),1
+('for example', 'ad esempio'),1
+('unless', 'a meno che'),1
+('', 'tuttavia'),1
+('as soon as', 'dopo'),1
+('and', 'prima'),1
+('earlier', 'e'),1
+('as', 'quando'),1
+('and', 'solamente'),1
+('as soon as', 'prima'),1
+('wo', ''),1
+('', 'in fin dei conti'),1
+('so', 'quindi'),1
+('so', 'per cui'),1
+('therefore', 'perché'),1
+('but', 'solo'),1
+('so', 'cosicché'),1
+('however', 'ma'),1
+('once', 'se'),1
+('furthermore', ''),1
+('', "dall'altro"),1
+('with', 'allo stesso modo'),1
+('not only', ''),1
+('yet', 'invece'),1
+('', 'piuttosto'),1
+('come', ''),1
+('once', 'quando'),1
+('however', 'in più'),1
+('before', 'prima di'),1
+('so', 'così'),1
+('however', 'per'),1
+('for instance', 'ad esempio'),1
+('because of', ''),1
+('', 'sebbene'),1
+('in case', ''),1
+('whenever', ''),1
+('thus', 'di conseguenza'),1
+('for', 'pertanto'),1
+('indeed', 'infatti'),1
+('likewise', ''),1
+('so that', 'per cui'),1
+('still', 'tuttavia'),1
+('before', ''),1
+('per', 'per'),1
+('also', 'pure'),1
+('without', 'per'),1
+('therefore', 'pertanto'),1
+('though', 'anche se'),1
+('still', 'di'),1
+('', 'tranne'),1
+('pure', ''),1
+('because of', 'per questo'),1
+('instead of', ''),1
+('once', ''),1
+('on the other hand', ''),1
+('', "d'altra parte"),1
+('besides', 'per di più'),1
+('', 'invece'),1
+('nevertheless', 'eppure'),1
+('and', 'pertanto'),1
+('if', 'per quanto'),1
+('so that', 'per'),1
+('so', 'perché'),1
+('much as', 'anche se'),1
+('', 'però'),1
+('', 'a causa di'),1
+('and', 'di'),1
+('as well', 'e'),1
+('moreover', 'inoltre'),1
+('then', 'poi'),1
+('regardless', ''),1
+('and', 'mentre'),1
+('for', 'poiché'),1
+('overall', ''),1
+('after all', 'dopo'),1
+('till', ''),1
+('', 'che'),1
+('', 'altrimenti'),1
+('instead of', 'invece'),1
+('otherwise', ''),1
+('for', 'e'),1
+('for instance', ''),1
+('as', 'da'),1
+('when', 'quando'),1
+('at the same time', 'tuttavia'),1
+('yet', ''),1
+('', 'nel contempo'),1
+('ultimately', ''),1
+('or', 'o'),1
+('hence', 'perché'),1
+('in this way', 'per'),1
+('at the same time', 'mentre'),1
+('still', 'un lato'),1
+('and', 'lato'),1
+('in addition', 'e'),1
+('as', "dall'altro"),1
+('likewise', 'anche'),1
+('when', 'e'),1
+('meanwhile', ''),1
+('besides', 'anche'),1
+('after', 'e'),1
+('in turn', ''),1
+('as', 'come'),1
