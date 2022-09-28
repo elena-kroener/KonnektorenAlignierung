@@ -1,3 +1,4 @@
+"""Read corpus into html file, with color-coded connectors"""
 import ast
 import csv
 import os
