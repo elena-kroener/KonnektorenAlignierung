@@ -90,8 +90,9 @@ def allign_connectors(extracted_connectors):
     Allign connectors sentence-triple-wise into a dict of the form
     {lang: {color: ([index_de], [index_en], [index_it])}}
     """
-    colors = ['#b71c1c', '#00c853', '#512da8', '#ff5722', '#4e342e', '#2962ff',
-              '#e91e63', '#26c6da', '#ffd600', '#9e9d24', '#004d40', '#455a64']
+    colors = ['#FF2828', '#00c853', '#512da8', '#ff5722', '#4e342e', '#2962ff',
+              '#e91e63', '#26c6da', '#ffd600', '#9e9d24', '#004d40', '#455a64',
+              '#9C1717']
     result = {'de': dict(), 'en': dict(), 'it': dict()}
     # if no connector in the sentence
     if len(extracted_connectors['de']) == 0 \
