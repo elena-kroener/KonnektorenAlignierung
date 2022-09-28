@@ -86,9 +86,9 @@ def extract_connectors(triple, connector_list):
                 i += 1
     return connectors_in_triple
 
-def allign_connectors(extracted_connectors):
+def align_connectors(extracted_connectors):
     """
-    Allign connectors sentence-triple-wise into a dict of the form
+    Align connectors sentence-triple-wise into a dict of the form
     {lang: {color: ([index_de], [index_en], [index_it])}}
     """
     colors = ['#FF2828', '#00c853', '#512da8', '#ff5722', '#4e342e', '#2962ff',
@@ -175,7 +175,7 @@ def write_as_html(path_out, sent_triples, connector_list):
         f_out.write('<meta charset="utf-8">\n')
         for triple_id, triple in enumerate(sent_triples):
             extracted_connectors = extract_connectors(triple, connector_list)
-            aligned_connectors = allign_connectors(extracted_connectors)
+            aligned_connectors = align_connectors(extracted_connectors)
 
             # update HTML-file
             f_out.write(f'<p>{triple_id}</p>\n')
