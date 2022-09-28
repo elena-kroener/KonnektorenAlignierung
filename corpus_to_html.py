@@ -161,8 +161,10 @@ def sent_to_html_str(sent, aligned_connectors, lang):
     return ''.join(html_elements)
 
 def write_as_html(path_out, sent_triples, connector_list):
-    """Converts all sentence triples to html-strings and writes to the given path and
-    records alignment statistics in txt-files."""
+    """
+    Converts all sentence triples to html-strings, writes to the given path and
+    records alignment statistics in txt-files.
+    """
     with open(path_out, mode='w', encoding='utf-8') as f_out:
         de_en_stat = Counter()
         de_it_stat = Counter()
@@ -177,17 +179,20 @@ def write_as_html(path_out, sent_triples, connector_list):
             f_out.write(f'<p>{triple_id}</p>\n')
             langs = {0: 'de', 1: 'en', 2: 'it'}
             for i, sent in enumerate(triple):
-                f_out.write(sent_to_html_str(sent, aligned_connectors, langs[i]))
+                f_out.write(sent_to_html_str(sent,
+                                             aligned_connectors, langs[i]))
             f_out.write('\n')
 
             # update stats
-            _update_alignment_stats(triple, aligned_connectors, de_en_stat, de_it_stat, en_it_stat)
+            _update_alignment_stats(triple, aligned_connectors, de_en_stat,
+                                    de_it_stat, en_it_stat)
 
         _stat_as_csv(de_en_stat, 'output/de_en_stat.csv')
         _stat_as_csv(de_it_stat, 'output/de_it_stat.csv')
         _stat_as_csv(en_it_stat, 'output/en_it_stat.csv')
 
-def _update_alignment_stats(sent_triple, aligned_connectors, de_en_stat, de_it_stat, en_it_stat):
+def _update_alignment_stats(sent_triple, aligned_connectors, de_en_stat,
+                            de_it_stat, en_it_stat):
     tokenized_sents = dict()
     tokenized_sents['de'] = word_tokenize(sent_triple.de)
     tokenized_sents['en'] = word_tokenize(sent_triple.en)
@@ -207,13 +212,17 @@ def _update_alignment_stats(sent_triple, aligned_connectors, de_en_stat, de_it_s
         en_connector = ' '.join(color_dict[color]['en']).lower()
         it_connector = ' '.join(color_dict[color]['it']).lower()
 
-        de_en_stat[(de_connector, en_connector)] = de_en_stat.get((de_connector, en_connector), 0) + 1
-        de_it_stat[(de_connector, it_connector)] = de_it_stat.get((de_connector, it_connector), 0) + 1
-        en_it_stat[(en_connector, it_connector)] = en_it_stat.get((en_connector, it_connector), 0) + 1
+        de_en_stat[(de_connector, en_connector)] = de_en_stat.get((de_connector,
+                                                   en_connector), 0) + 1
+        de_it_stat[(de_connector, it_connector)] = de_it_stat.get((de_connector,
+                                                   it_connector), 0) + 1
+        en_it_stat[(en_connector, it_connector)] = en_it_stat.get((en_connector,
+                                                   it_connector), 0) + 1
 
 def _stat_as_csv(counter_obj, output_path):
     with open(output_path, mode='w', encoding='utf-8') as f_out:
-        for key, value in sorted(counter_obj.items(), key=lambda pair: pair[1], reverse=True):
+        for key, value in sorted(counter_obj.items(), key=lambda pair: pair[1],
+                                 reverse=True):
             f_out.write(f"{key},{value}\n")
 
 if __name__ == '__main__':
