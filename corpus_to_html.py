@@ -8,8 +8,12 @@ from nltk.tokenize import word_tokenize
 
 
 def read_connector_list(txt_filepath):
-    """Returns a dict of connectors read from a csv file."""
-    result = {}
+    """
+    Returns a dict of connectors read from a csv file.
+    Dict is structured into two dicts, one containing all single connectors,
+    the other containing the connectors with a counterpart.
+    """
+    result = {'single': {}, 'double': {}}
     with open(txt_filepath, 'r', encoding='utf-8') as f_in:
         reader = csv.DictReader(f_in)
         for row in reader:
@@ -17,9 +21,12 @@ def read_connector_list(txt_filepath):
             # get the right types: list and boolean
             row['relation'] = ast.literal_eval(row['relation'])
             row['is_pair'] = ast.literal_eval(row['is_pair'])
-            result[row['connector']] = {key: value for key, value in row.items()
-                                        if key in ['relation', 'is_pair',
-                                                   'counterpart']}
+            row_values = {key: value for key, value in row.items()
+                          if key in ['relation', 'is_pair', 'counterpart']}
+            if row['is_pair']:
+                result['double'][row['connector']] = row_values
+            else:
+                result['single'][row['connector']] = row_values
     return result
 
 def extract_connectors(triple, connector_list):
@@ -34,53 +41,47 @@ def extract_connectors(triple, connector_list):
             for token in ngrams(sent, n):
                 if not i in already_parsed:
                     token = tuple([word.lower() for word in token])
-                    if token in connector_list.keys():
+
+                    # check if connector has a counterpart
+                    found_counterpart = False
+                    if token in connector_list['double'].keys():
+                        index_of_connector = [i]
+                        for index in range(1, n):
+                            index_of_connector += [i+index]
+                        counterpart = tuple(connector_list['double'][token]
+                                            ['counterpart'].split(' '))
+                        len_counterpart = len(counterpart)
+                        index = 0
+                        # search the sentence in ngrams of the length
+                        #    of the counterpart
+                        for part in ngrams(sent, len_counterpart):
+                            if part == counterpart:
+                                for i_counter in range(len_counterpart):
+                                    index_of_connector += [index+i_counter]
+                                connectors_in_triple[lang].append(
+                                     (list(token) + list(part),
+                                     index_of_connector,
+                                     connector_list['double'][token]['relation'])
+                                     )
+                                already_parsed += index_of_connector
+                                found_counterpart = True
+                                break
+                            else:
+                                index += len_counterpart
+
+                    # find single connectors
+                    if (token in connector_list['single'].keys()
+                       and not found_counterpart):
                         index_of_connector = [i]
                         # get indices of multiple worded connectors
                         for index in range(1, n):
-                            index_of_connector += [i + index]
-                        # if connector doesn't have a counterpart:
-                        if not connector_list[token]['is_pair']:
-                            connectors_in_triple[lang].append(
-                                 (list(token),
-                                 index_of_connector,
-                                 connector_list[token]['relation'])
-                                 )
-                            already_parsed += index_of_connector
-                        # if connector DOES have a counterpart:
-                        else:
-                            counterpart = tuple(
-                                          connector_list[token]['counterpart']
-                                          .split(' ')
-                                          )
-                            len_counterpart = len(counterpart)
-                            index = 0
-                            found_counterpart = False
-                            # search the sentence in ngrams of the length
-                            #    of the counterpart
-                            for part in ngrams(sent, len_counterpart):
-                                if part == counterpart:
-                                    for i_counter in range(len_counterpart):
-                                        index_of_connector += [index+i_counter]
-                                    connectors_in_triple[lang].append(
-                                         (list(token) + list(part),
-                                         index_of_connector,
-                                         connector_list[token]['relation'])
-                                         )
-                                    already_parsed += index_of_connector
-                                    found_counterpart = True
-                                    break
-                                else:
-                                    index += len_counterpart
-                            # if no counterpart found
-                            #     and exists also as single connector:
-                            #     add to found connectors on its own
-                            if not found_counterpart:
-                                connectors_in_triple[lang].append(
-                                    (list(token),
-                                    index_of_connector,
-                                    connector_list[token]['relation'])
-                                    )
+                            index_of_connector += [i+index]
+                        connectors_in_triple[lang].append(
+                             (list(token),
+                             index_of_connector,
+                             connector_list['single'][token]['relation'])
+                             )
+                        already_parsed += index_of_connector
                 i += 1
     return connectors_in_triple
 
@@ -230,24 +231,16 @@ if __name__ == '__main__':
     CONNECTORS_DE = read_connector_list('data/connectors_df/df_de.csv')
     CONNECTORS_EN = read_connector_list('data/connectors_df/df_en.csv')
     CONNECTORS_IT = read_connector_list('data/connectors_df/df_it.csv')
-    connector_list = dict()
-    {connector_list.update(lang) for lang in [CONNECTORS_DE, CONNECTORS_EN,
-                                              CONNECTORS_IT]}
+    connector_list = {'single': {}, 'double': {}}
+    {connector_list['single'].update(lang) for lang in [CONNECTORS_DE['single'],
+                              CONNECTORS_EN['single'], CONNECTORS_IT['single']]}
+    {connector_list['double'].update(lang) for lang in [CONNECTORS_DE['double'],
+                              CONNECTORS_EN['double'], CONNECTORS_IT['double']]}
     # get all sentence triples
     corpus_root = os.path.join('data', 'corpus')
     all_sent_triples = all_xmls_to_sent_triples(
         corpus_root,
         list_xml_files(os.path.join(corpus_root, 'de'))
         )
-    # SentTriple = namedtuple('SentTriple', 'de en it')
-    # all_sent_triples = [SentTriple('und zu viele Ressourcen gehen verloren , wenn zusammen verbrannt wird , was getrennt eigentlich verwertet werden könnte . ',
-    #                      'and too many resources are lost when what actually should be separated and recycled is burnt . ',
-    #                      'e si perdono troppe risorse se quello che in realtà dovrebbe essere separato e riciclato viene incenerito . ')]
-    # all_sent_triples = [SentTriple('Solange aber nicht klar ist , wieso es dazu kommt , sollte das Geld besser für Behandlungen ausgegeben werden , bei denen man es mit Sicherheit weiss . ',
-    #                      'But as long as it is unclear as to how this works , the funds should rather be spent on therapies where one knows with certainty . ',
-    #                      'Ma fino a quando non si capisce perché questo accade , sarebbe meglio spendere i soldi per trattamenti che si conoscono per certo .')]
-    # all_sent_triples = [SentTriple('Schließlich wollen wir unsereren Blick auf die Welt weder durch die Brille der Regierung noch durch die von reichen Medienunternehmern bekommen . ',
-    #                      'After all we want to get our view of the world neither through the lens of the government nor through that of rich media entrepreneurs . ',
-    #                      'Dopo tutto , non vogliamo ottenere la nostra visione del mondo attraverso le lenti del governo o attraverso quelle dei ricchi imprenditori dei media .')]
-    # write to html
-    write_as_html(os.path.join('output', 'output.html'), all_sent_triples, connector_list)
+    write_as_html(os.path.join('output', 'output.html'),
+                  all_sent_triples, connector_list)
