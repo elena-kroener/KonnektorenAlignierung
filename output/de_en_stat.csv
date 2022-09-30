@@ -1,350 +1,358 @@
-('', ''),138
-('und', 'and'),92
-('für', ''),58
-('', 'for'),45
-('auf', ''),43
-('auch', ''),36
-('von', ''),35
-('nur', ''),34
-('und', ''),34
-('', 'or'),32
+('', ''),129
+('und', 'and'),94
+('', 'for'),54
+('für', ''),50
+('nur', ''),33
 ('oder', ''),31
-('dass', ''),28
-('', 'with'),23
-('', 'but'),22
-('aber', 'but'),20
-('noch', ''),19
-('wenn', ''),17
-('für', 'for'),16
+('auch', ''),28
+('aber', 'but'),27
+('', 'and'),27
+('und', ''),26
+('', 'with'),24
+('dass', ''),24
+('als', ''),24
+('', 'or'),23
+('für', 'for'),23
+('', 'as'),22
+('auch', 'also'),17
 ('zwar', ''),16
-('', 'and'),16
-('durch', ''),16
-('', 'as'),16
-('als', ''),16
+('durch', ''),15
+('noch', ''),14
 ('wie', ''),14
-('', 'if'),13
-('so', ''),12
-('doch', ''),11
 ('denn', 'for'),10
-('', 'also'),10
-('auch', 'also'),10
-('um', ''),10
+('doch', 'but'),10
 ('aber', 'however'),10
-('', 'without'),10
-('', 'after all'),8
-('da', 'as'),8
+('wenn', 'if'),9
+('', 'without'),8
+('', 'rather'),8
+('so', ''),8
 ('da', 'since'),8
-('als', 'for'),8
-('auch', 'and'),8
-('danach', ''),7
-('als', 'as'),7
-('von', 'and'),7
+('wenn', ''),8
+('und', 'for'),8
+('da', 'as'),8
+('', 'after all'),7
 ('jedoch', 'however'),7
-('und', 'also'),7
-('auf', 'for'),7
+('danach', ''),7
 ('', 'particularly'),7
-('', 'then'),6
 ('allerdings', 'however'),6
 ('also', ''),6
+('', 'also'),6
+('kaum', ''),6
 ('obwohl', 'although'),6
-('solange', 'as long as'),6
-('aber', ''),6
-('außerdem', 'furthermore'),5
-('', 'upon'),5
+('dann', ''),5
 ('jedoch', 'yet'),5
+('', 'upon'),5
+('dann', 'then'),5
+('dass', 'and'),5
 ('zudem', 'besides'),5
-('', 'rather'),5
-('außerdem', 'besides'),5
-('nur', 'and'),5
-('und', 'for'),5
+('außerdem', 'and'),5
 ('durch', 'and'),5
-('mal', ''),5
-('denn', 'as'),4
-('außerdem', 'and'),4
-('', 'indeed'),4
-('deswegen', ''),4
-('ob', ''),4
+('außerdem', 'besides'),5
+('wenn', 'when'),4
+('mal', ''),4
+('solange', 'as long as'),4
+('und', 'or'),4
+('doch', ''),4
 ('', 'anyway'),4
-('', 'when'),4
 ('daher', 'therefore'),4
-('so', 'for'),4
-('kaum', ''),4
-('', 'after'),4
-('dafür', ''),4
 ('', 'given'),4
 ('außerdem', 'plus'),4
-('', 'before'),4
-('dann', 'then'),4
-('als', 'and'),3
-('doch', 'rather'),3
-('dabei', ''),3
-('dass', 'with'),3
-('dass', 'and'),3
-('bis', ''),3
-('dann', 'if'),3
-('auch wenn', 'even if'),3
-('daher', ''),3
-('dazu', ''),3
-('als', 'when'),3
-('allerdings', ''),3
+('und', 'also'),4
+('ob', ''),4
+('', 'if'),4
+('außerdem', 'furthermore'),4
+('so', 'for'),4
+('auch', 'without'),4
+('und', 'with'),4
+('denn', 'as'),4
+('nur', 'and'),3
 ('trotzdem', 'nevertheless'),3
 ('schließlich', ''),3
-('da', ''),3
-('dass', 'as'),3
-('überhaupt', ''),3
-('von', 'for'),3
+('', 'after'),3
 ('zwar', 'and'),3
-('trotz', 'despite'),3
-('auch', 'as'),3
-('', 'further'),3
-('von', 'with'),3
-('allerdings', 'and'),3
-('und', 'with'),3
-('kaum', 'and'),3
+('als', 'as'),3
+('auch wenn', 'even if'),3
 ('dadurch', ''),3
 ('deshalb', ''),3
-('seit', 'for'),2
-('zwar', 'as'),2
-('', 'essentially'),2
-('auf', 'and'),2
+('', 'further'),3
+('', 'before'),3
+('dafür', ''),3
+('', 'indeed'),3
+('dass', 'with'),3
+('', 'therefore'),3
+('auch', 'and'),3
+('überhaupt', ''),3
+('aber', ''),3
+('da', ''),3
+('als', 'when'),3
+('bis', ''),3
+('als', 'and'),3
+('deswegen', ''),3
+('trotz', 'despite'),3
+('', 'still'),2
+('dazu', 'with'),2
+('gleichermaßen', ''),2
 ('doch', 'yet'),2
+('danach', 'after'),2
+('dabei', ''),2
+('', 'once'),2
+('', 'essentially'),2
+('', 'when'),2
+('trotzdem', 'still'),2
+('während', ''),2
+('daher', ''),2
+('durch', 'when'),2
+('sodass', 'so that'),2
+('daher', 'for'),2
+('auch', 'as'),2
+('weil', 'because'),2
 ('für', 'and'),2
 ('zudem', 'moreover'),2
-('trotzdem', 'still'),2
-('dann', ''),2
-('nämlich', 'for'),2
-('deshalb', 'therefore'),2
-('sondern', 'not only but'),2
-('sondern', 'but'),2
-('aber', 'as'),2
-('gleichermaßen', ''),2
-('', 'still'),2
-('jedoch', ''),2
-('jedoch', 'and'),2
-('damit', ''),2
-('daher', 'thus'),2
-('anhand', ''),2
-('da', 'for'),2
-('dass', 'for'),2
-('während', ''),2
-('auch', 'without'),2
 ('', 'else'),2
 ('und', 'given'),2
-('inzwischen', ''),2
-('dass', 'so'),2
-('', 'once'),2
-('', 'for one thing'),2
-('weil', 'because'),2
-('wenn', 'when'),2
+('als auch sowohl', 'and'),2
+('da', 'for'),2
+('so', 'as'),2
+('zwar', 'as'),2
+('auch', 'with'),2
+('nämlich', 'for'),2
 ('außerdem', 'also'),2
 ('dazu', 'however'),2
 ('beispielsweise', 'for instance'),2
-('danach', 'after'),2
-('daher', 'for'),2
-('', 'therefore'),2
-('', 'if then'),2
-('wenn', 'even if'),2
-('aber', 'and'),2
+('so', 'thus'),2
+('sondern', 'not only but'),2
+('durch', 'for'),2
+('daher', 'thus'),2
+('anhand', ''),2
+('damit', ''),2
+('jedoch', 'and'),2
+('seit', 'for'),2
+('allerdings', 'and'),2
+('wenn', 'if then'),2
+('und', 'however'),2
+('wenn', 'and'),2
+('jedoch', ''),2
+('allerdings', ''),2
+('solange', ''),2
+('', 'as long as'),2
+('und', 'still'),2
+('noch', 'for'),2
+('', 'even if'),2
 ('besonders', ''),2
 ('', 'instead of'),2
-('und', 'but'),2
-('andererseits', ''),2
-('durch', 'when'),2
-('wenn', 'if'),2
+('dass', 'as'),2
+('', 'likewise'),2
 ('besonders', 'and'),2
-('auch', 'with'),1
-('zwar', 'still'),1
-('aber', 'aside from'),1
-('ansonsten', ''),1
-('obwohl', 'even though'),1
-('vielmehr', 'rather'),1
-('deshalb', 'when'),1
-('allein', ''),1
-('als', 'with'),1
-('und', 'overall'),1
-('wodurch', 'for'),1
-('auch', 'ultimately'),1
-('', 'for instance'),1
-('damit', 'with'),1
-('und', 'in fact'),1
-('dann', 'for'),1
-('wenn auch', ''),1
-('also', 'also'),1
-('weil', ''),1
-('ebenfalls', 'also'),1
-('da', 'in the end'),1
-('doch', 'as'),1
-('ausserdem', 'besides'),1
-('sowieso', ''),1
-('darauf', 'and'),1
-('aber', 'after all'),1
-('schließlich', 'for'),1
-('also', 'therefore'),1
-('aufgrund', 'and'),1
-('angesichts', 'for'),1
-('', 'besides'),1
-('wie', 'as'),1
-('weil', 'since'),1
-('und', 'later'),1
-('teils', ''),1
-('entsprechend', 'therefore'),1
-('', 'accordingly'),1
-('ebenfalls', 'with'),1
-('aber', 'with'),1
+('inzwischen', ''),2
+('dass', 'so'),2
+('doch', 'and'),1
+('da', 'therefore'),1
+('wenn', 'once'),1
 ('es sei denn', ''),1
 ('', 'unless'),1
 ('zwar', 'after'),1
-('so', 'as'),1
-('indem', ''),1
-('dann', 'finally'),1
-('und', 'besides'),1
-('weshalb', ''),1
 ('weder noch', 'after all'),1
 ('', 'neither nor'),1
-('bis', 'for example'),1
-('es sei denn', 'unless'),1
-('danach', 'as soon as'),1
-('wenn', 'and'),1
-('so', 'and'),1
-('wenn', 'still'),1
-('auch wenn', 'and'),1
-('', 'earlier'),1
-('und', 'as'),1
-('dazu', 'with'),1
-('nur', 'while'),1
-('während', 'while'),1
-('so', 'hence'),1
-('', 'as soon as'),1
-('aber', 'in the end'),1
-('auch wenn', ''),1
-('', 'wo'),1
-('', 'so'),1
-('hierdurch', 'so'),1
-('allerdings', 'though'),1
-('sowieso', 'and'),1
-('', 'thus'),1
-('nämlich', ''),1
-('zum einen', ''),1
+('zum einen', 'for one thing'),1
 ('zum anderen', 'and'),1
 ('und', 'furthermore'),1
 ('eben', 'with'),1
-('', 'not only'),1
-('dabei', 'yet'),1
-('also', 'hence'),1
-('um', 'for'),1
-('zwar', 'or'),1
-('von', 'hence'),1
-('sogleich', 'and'),1
-('', 'come'),1
-('noch', 'indeed'),1
-('doch', 'and'),1
-('da', 'therefore'),1
-('dann', 'once'),1
-('und', 'however'),1
-('als wenn', ''),1
-('wegen', 'so'),1
-('danach', 'and'),1
-('von', 'thus'),1
-('auf', 'so'),1
-('zudem', 'and'),1
-('', 'because of'),1
-('', 'in case'),1
-('', 'whenever'),1
-('folglich', 'thus'),1
-('trotzdem', 'and'),1
-('und', 'anyway'),1
-('zwar', 'indeed'),1
-('dennoch', 'however'),1
-('ebenfalls', 'likewise'),1
-('entsprechend', ''),1
-('und', 'so that'),1
-('für', 'with'),1
-('wenn', 'however'),1
-('zudem', 'furthermore'),1
-('weil', 'as'),1
-('jedoch', 'though'),1
-('zuletzt', ''),1
-('mal', 'as'),1
-('sondern', ''),1
-('insbesondere', ''),1
-('so', 'when'),1
-('durch', 'for'),1
-('seit', ''),1
-('von', 'per'),1
-('wenngleich', 'although'),1
-('für', 'without'),1
-('zwar', 'though'),1
-('und', 'still'),1
-('dennoch', 'and'),1
-('außer', ''),1
-('', 'aside from'),1
-('auch', 'pure'),1
-('damit', 'because of'),1
-('statt', ''),1
-('wegen', ''),1
-('von', 'therefore'),1
-('zudem', ''),1
-('', 'on the other hand'),1
-('vielmehr', ''),1
-('dennoch', 'nevertheless'),1
-('zudem', 'plus'),1
 ('noch', 'and'),1
 ('deshalb', 'and'),1
-('dass', 'or'),1
-('doch', 'if'),1
-('', 'so that'),1
-('auch', 'but'),1
 ('zumal', 'so'),1
-('weiterhin', ''),1
-('später', 'later'),1
-('ohnehin', ''),1
-('dagegen', ''),1
-('zwar', 'much as'),1
-('entsprechend', 'with'),1
-('trotzdem', 'yet'),1
-('', 'however'),1
-('wie', 'and'),1
-('zudem', 'also'),1
-('aufgrund', ''),1
-('', 'while'),1
-('sowie', 'as well'),1
-('auf', 'as'),1
-('dennoch', 'still'),1
-('um', 'and'),1
-('', 'regardless'),1
-('so', 'thus'),1
-('dann', 'if then'),1
-('', 'overall'),1
-('schließlich', 'after all'),1
-('bis', 'till'),1
-('somit', 'thus'),1
-('anstatt', ''),1
-('sonst', ''),1
-('', 'otherwise'),1
-('hin', 'with'),1
-('kaum', 'as'),1
-('jedoch', 'at the same time'),1
-('auch', 'yet'),1
-('gleichzeitig', ''),1
-('', 'ultimately'),1
-('oder', 'or'),1
-('deswegen', 'hence'),1
-('darauf', ''),1
-('denn', 'in this way'),1
-('denn', 'given'),1
-('gleichzeitig', 'at the same time'),1
-('zwar', 'although'),1
+('wie', 'as'),1
+('weil', 'since'),1
+('als', 'or'),1
+('so dass', ''),1
+('und', 'overall'),1
+('ausserdem', 'besides'),1
+('sowieso', ''),1
+('und', 'in fact'),1
+('dann', 'for'),1
+('noch', 'then'),1
 ('also', 'as'),1
 ('dann', 'and'),1
 ('eben', ''),1
 ('und', 'while'),1
 ('ausserdem', 'plus'),1
 ('dass', 'when'),1
-('einerseits', 'still'),1
+('und', 'later'),1
+('sondern', 'and'),1
+('', 'but'),1
+('teils', ''),1
+('entsprechend', 'therefore'),1
+('', 'accordingly'),1
+('zwar', 'much as'),1
+('entsprechend', 'with'),1
+('für', 'without'),1
+('dass', 'or'),1
+('doch', 'if'),1
+('andererseits', ''),1
+('andererseits', 'on the other hand'),1
+('zudem', ''),1
+('damit', 'because of'),1
+('sondern', 'but'),1
+('vielmehr', ''),1
+('mal', 'or'),1
+('seit', ''),1
+('', 'per'),1
+('wodurch', 'for'),1
+('auch', 'ultimately'),1
+('sowie', 'as well'),1
+('', 'while'),1
+('', 'regardless'),1
+('dennoch', 'nevertheless'),1
+('zudem', 'plus'),1
+('', 'if then'),1
+('auch', 'after all'),1
+('und', 'but'),1
+('sogleich', 'and'),1
+('allein', ''),1
+('als auch sowohl', 'furthermore'),1
+('deshalb', 'therefore'),1
+('wegen', 'so'),1
+('danach', 'and'),1
+('wegen', ''),1
+('daher', 'with'),1
+('weshalb', ''),1
+('wie', 'and'),1
+('zudem', 'also'),1
+('aufgrund', ''),1
+('sodass', 'so'),1
+('kaum', 'and'),1
+('zudem', 'and'),1
+('', 'because of'),1
+('als', 'before'),1
+('sodass', 'and'),1
+('für', 'with'),1
+('danach', 'as soon as'),1
+('so dass', 'and'),1
+('dazu', 'as'),1
+('indem', ''),1
+('dann', 'finally'),1
+('und', 'besides'),1
+('nur', 'if'),1
+('auch wenn', 'if'),1
+('', 'earlier'),1
+('und', 'as'),1
+('zuletzt', 'and'),1
+('mal', 'as'),1
+('sondern', ''),1
+('insbesondere', ''),1
+('so', 'when'),1
+('aufgrund', 'and'),1
+('angesichts', 'for'),1
+('', 'besides'),1
+('allerdings', 'then'),1
+('auch', 'indeed'),1
+('also', 'after'),1
+('', 'pure'),1
+('', 'come'),1
+('noch', 'indeed'),1
+('wenngleich', 'although'),1
+('deswegen', 'or'),1
+('dabei', 'yet'),1
+('', 'as soon as'),1
+('aber', 'in the end'),1
+('auch wenn', 'but'),1
+('', 'wo'),1
+('außer', 'aside from'),1
 ('denn', 'because'),1
-('andererseits', 'in addition'),1
-('', 'likewise'),1
+('einerseits', 'still'),1
+('', 'for one thing'),1
+('und', 'in addition'),1
+('andererseits', 'and'),1
+('gleichzeitig', 'at the same time'),1
+('zwar', 'although'),1
+('dennoch', 'still'),1
+('', 'in case'),1
+('', 'whenever'),1
+('folglich', 'thus'),1
+('kaum', 'as'),1
+('zudem', 'furthermore'),1
+('dass', 'then'),1
+('', 'for instance'),1
+('damit', 'with'),1
+('auch', 'but'),1
+('zwar', 'still'),1
+('aber', 'aside from'),1
+('ansonsten', 'but'),1
+('bis', 'for example'),1
+('es sei denn', 'unless'),1
+('oder', 'or'),1
+('deswegen', 'hence'),1
+('darauf', ''),1
+('statt', ''),1
+('weiterhin', ''),1
+('später', 'later'),1
+('ohnehin', ''),1
+('dagegen', ''),1
+('trotzdem', 'and'),1
+('und', 'anyway'),1
+('zwar', 'indeed'),1
+('dennoch', 'however'),1
+('ebenfalls', 'or'),1
+('entsprechend', ''),1
+('als wenn', ''),1
+('denn', 'in this way'),1
+('denn', 'given'),1
+('wiederum', 'in turn'),1
+('ebenfalls', 'with'),1
+('aber', 'then'),1
+('nur', 'then'),1
+('', 'so'),1
+('hierdurch', 'so'),1
+('dass', 'if'),1
+('allerdings', 'though'),1
+('sowieso', 'and'),1
+('so', 'if'),1
+('noch', 'with'),1
+('wenn auch', 'if'),1
+('dann', 'also'),1
+('weil', ''),1
+('ebenfalls', 'also'),1
+('da', 'in the end'),1
+('doch', 'as'),1
+('nur', 'or'),1
+('nur', 'while'),1
+('während', 'while'),1
+('so', 'hence'),1
 ('also', 'when'),1
 ('und', 'hence'),1
+('allerdings', 'but'),1
 ('', 'meanwhile'),1
-('wiederum', 'in turn'),1
+('dazu', ''),1
+('jedoch', 'at the same time'),1
+('auch', 'yet'),1
+('gleichzeitig', ''),1
+('', 'ultimately'),1
+('obwohl', 'even though'),1
+('dabei', 'but'),1
+('vielmehr', 'rather'),1
+('deshalb', 'when'),1
+('deshalb', 'but'),1
+('noch', 'therefore'),1
+('also', 'hence'),1
+('zwar', 'or'),1
+('', 'hence'),1
+('bis', 'till'),1
+('somit', 'thus'),1
+('anstatt', ''),1
+('sonst', ''),1
+('', 'otherwise'),1
+('', 'overall'),1
+('schließlich', 'after all'),1
+('dafür dass', ''),1
+('', 'thus'),1
+('nämlich', ''),1
+('weil', 'as'),1
+('jedoch', 'though'),1
+('für', 'as'),1
+('trotzdem', 'yet'),1
+('', 'however'),1
+('zwar', 'though'),1
+('dennoch', 'and'),1
+('darauf', 'and'),1
+('aber', 'after all'),1
+('schließlich', 'but'),1
+('also', 'therefore'),1
